@@ -193,3 +193,98 @@ Do last week’s assignment again, but this time:
 3) We will be grading with an emphasis on creativity. 
 
 \*\***Document everything here. (Particularly, we would like to see the storyboard and video, although photos of the prototype are also great.)**\*\*
+
+## Part A. Plan 
+
+
+\*\***Describe your setting, players, activity and goals here.**\*\*
+
+Picture this — a lone pianist on an otherwise silent stage, prepared to perform in front of a small audience at a local New York City restaurant. It is a Saturday night and the pianist has no idea what song will elicit the most emotion. Fortunately, the restaurant our performer is playing at has been equipped with VibeCheck, a new technology created by four Cornell Tech students. VibeCheck is a device that sits on a table, reading the brain activity of those seated and detecting their emotional response to the music being played. VibeCheck interacts with smart devices, enhancing the scene in a multi-sensory fashion. For example, while playing a Portuguese Fado classic, VibeCheck will project pictures of Portugal's beautiful landscapes and activate smalls of Pastéis de Nata. After the night ends, the restaurant will receive a score on how well the musician elicited emotion from the audience. 
+
+\*\***Include pictures of your storyboards here**\*\*  
+Other ideas
+
+**Storyboard 1: Music Vibe Check* \
+![VibeCheck](/Lab%201/storyboards/vibe-check.jpg)  
+**Storyboard 2: Drugged Drink Detector* \
+![Drugged Drink Detector](/Lab%201/storyboards/vibe-check/baddrink.jpg)  
+**Storyboard 3: Food Poisoning Detector* \
+![Food Poisoning Detector](/Lab%201/storyboards/vibe-check/poisoning.jpg)  
+**Storyboard 4: Food Cooking Detector* \
+![Food Cooking Detector](/Lab%201/storyboards/vibe-check/cooking.jpg)  
+**Storyboard 5: Clean the House Minigame* \
+![Cleaning the House Minigame](/Lab%201/storyboards/tuner/complete/minigame.jpg)  
+**Storyboard 6: Food Delivery Experience* \
+![Food Delivery Experience](/Lab%201/storyboards/tuner/complete/delivery.jpg)  
+**Storyboard 7: Caffeine Intake Detector* \
+![Caffeine Intake Detector](/Lab%201/storyboards/tuner/complete/caffeine.jpg)
+
+
+\*\***Summarize feedback you got here.**\*\*  
+Based on our first part, people enjoyed the music aspect. VibeCheck V2 was the most appreciated idea, as it incorporates a multi-sensory experience.
+
+## Part B. Act out the Interaction
+
+Try physically acting out the interaction you planned. For now, you can just pretend the device is doing the things you’ve scripted for it.  
+Our piano player changed genres when the "DJ" flashed the light.  
+[Video]( )
+
+
+
+\*\***Are there things that seemed better on paper than acted out?**\*\*
+Since we can only simulate the multi-sensory experience and cannot trigger non-visual senses for someone watching the video, we are limited in the impact of our recording.
+\*\***Are there new ideas that occur to you or your collaborators that come up from the acting?**\*\*  
+We decided to create more variety of scenes, such as using Portugese Fado to elicit strong emotional responses due to the beauty of the music and the memories we have associated with it. 
+
+
+
+## Part C. Prototype the device
+
+<!-- You will be using your smartphone as a stand-in for the device you are prototyping. You will use the browser of your smart phone to act as a “light” and use a remote control interface to remotely change the light on that device. 
+
+Code for the "Tinkerbelle" tool, and instructions for setting up the server and your phone are [here](https://github.com/FAR-Lab/tinkerbelle).
+
+We invented this tool for this lab! 
+
+If you run into technical issues with this tool, you can also use a light switch, dimmer, etc. that you can can manually or remotely control. -->
+
+\*\***Give us feedback on Tinkerbelle.**\*\* \
+We did not use Tinkerbelle for this second part of the lab, as it was not necessary or reasonably linkable to our smart devices, such as the oil diffuser.
+
+## Part D. Wizard the device
+Take a little time to set up the wizarding set-up that allows for someone to remotely control the device while someone acts with it. Hint: You can use Zoom to record videos, and you can pin someone’s video feed if that is the scene which you want to record. 
+
+\*\***Include your first attempts at recording the set-up video here.**\*\*
+Attempt using single color changing with Tinkerbelle app  
+ [Attempt]( )  
+
+
+Now, change the goal within the same setting, and update the interaction with the paper prototype. 
+
+\*\***Show the follow-up work here.**\*\*  
+Adding in the GIFs  
+
+[GIF Projected]( )  
+
+
+## Part E. Costume the device
+
+
+\*\***Include sketches of what your devices might look like here.**\*\* \
+*Design Options*\
+![Scrolling Customizable LED Display Board](/Lab%201/costume.jpg)   
+
+\*\***What concerns or opportunitities are influencing the way you've designed the device to look?**\*\* \
+Since the projector has ventilation in the back and projects light from the front, we cannot have a costume that covers either of the sides of the device.
+
+
+## Part F. Record
+
+\*\***Take a video of your prototyped interaction.**\*\*  
+[Video of Prototype](https://drive.google.com/file/d/1r2ackO6KHVYIbQu3fWM3Rz4h4dXIjIj_/view?usp=sharing)  
+
+
+
+\*\***Please indicate anyone you collaborated with on this Lab.**\*\* \
+We modified the Tinkerbelle code to work with remotely selected GIFs to match the intention of our project. ChatGPT was used to help adjust Tinkerbelle code.
+
