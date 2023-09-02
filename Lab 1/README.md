@@ -207,17 +207,17 @@ Other ideas
 **Storyboard 1: Music Vibe Check* \
 ![VibeCheck](/Lab%201/storyboards/vibe-check.jpg)  
 **Storyboard 2: Drugged Drink Detector* \
-![Drugged Drink Detector](/Lab%201/storyboards/vibe-check/baddrink.jpg)  
+![Drugged Drink Detector](storyboards/baddrink.jpg)  
 **Storyboard 3: Food Poisoning Detector* \
-![Food Poisoning Detector](/Lab%201/storyboards/vibe-check/poisoning.jpg)  
+![Food Poisoning Detector](storyboards/poisoning.jpg)  
 **Storyboard 4: Food Cooking Detector* \
-![Food Cooking Detector](/Lab%201/storyboards/vibe-check/cooking.jpg)  
+![Food Cooking Detector](storyboards/cooking.jpg)  
 **Storyboard 5: Clean the House Minigame* \
-![Cleaning the House Minigame](/Lab%201/storyboards/tuner/complete/minigame.jpg)  
+![Cleaning the House Minigame](storyboards/minigame.jpg)  
 **Storyboard 6: Food Delivery Experience* \
-![Food Delivery Experience](/Lab%201/storyboards/tuner/complete/delivery.jpg)  
+![Food Delivery Experience](storyboards/delivery.jpg)  
 **Storyboard 7: Caffeine Intake Detector* \
-![Caffeine Intake Detector](/Lab%201/storyboards/tuner/complete/caffeine.jpg)
+![Caffeine Intake Detector](storyboards/caffeine.jpg)
 
 
 \*\***Summarize feedback you got here.**\*\*  
