@@ -226,15 +226,16 @@ Based on our first part, people enjoyed the music aspect. VibeCheck V2 was the m
 ## Part B. Act out the Interaction
 
 Try physically acting out the interaction you planned. For now, you can just pretend the device is doing the things you’ve scripted for it.  
-Our piano player changed genres when the "DJ" flashed the light.  
-[Video]( )
+Showing basic interaction with the scene and the patron at the table. 
+
+[Video](https://drive.google.com/file/d/1fNQFmfe-QBoDJTrAXYwVVwk9E37RM_Xz/view?usp=sharing)
 
 
 
 \*\***Are there things that seemed better on paper than acted out?**\*\*
-Since we can only simulate the multi-sensory experience and cannot trigger non-visual senses for someone watching the video, we are limited in the impact of our recording.
+Since we can only simulate the multi-sensory experience and cannot trigger non-visual senses for someone watching the video, we are limited in the impact of our recording.  
 \*\***Are there new ideas that occur to you or your collaborators that come up from the acting?**\*\*  
-We decided to create more variety of scenes, such as using Portugese Fado to elicit strong emotional responses due to the beauty of the music and the memories we have associated with it. 
+We decided to create more variety of scenes, such as using vastly different genres to try and elicit strong emotional responses. We also had the actor display visible emotion to make it more obvious what the device is doing.   
 
 
 
@@ -255,16 +256,16 @@ We did not use Tinkerbelle for this second part of the lab, as it was not necess
 Take a little time to set up the wizarding set-up that allows for someone to remotely control the device while someone acts with it. Hint: You can use Zoom to record videos, and you can pin someone’s video feed if that is the scene which you want to record. 
 
 \*\***Include your first attempts at recording the set-up video here.**\*\*
-Attempt using single color changing with Tinkerbelle app  
- [Attempt]( )  
+We attempted a single background and panned the camera around the "restaurant" to show the whole scene. 
+ [Attempt 1](https://drive.google.com/file/d/1fNQFmfe-QBoDJTrAXYwVVwk9E37RM_Xz/view?usp=sharing)  
 
 
 Now, change the goal within the same setting, and update the interaction with the paper prototype. 
 
 \*\***Show the follow-up work here.**\*\*  
-Adding in the GIFs  
+Now we showed the person at the table interacting in a subtle way. In this case, he is sipping tea and not showing extreme emotion that implies he loves or hates the song. In the final video, this actor will elicit more obvious emotion to show whether or not he enjoys the music being played and the ambiance around it.
 
-[GIF Projected]( )  
+[Actor with props](https://drive.google.com/file/d/17U6_eNxjuPq2pQbxH1G9NLfaRdCHJ4KI/view?usp=sharing)  
 
 
 ## Part E. Costume the device
@@ -272,19 +273,19 @@ Adding in the GIFs
 
 \*\***Include sketches of what your devices might look like here.**\*\* \
 *Design Options*\
-![Scrolling Customizable LED Display Board](/Lab%201/costume.jpg)   
+![Three Costume Options](/Lab%201/costume.png)   
 
 \*\***What concerns or opportunitities are influencing the way you've designed the device to look?**\*\* \
-Since the projector has ventilation in the back and projects light from the front, we cannot have a costume that covers either of the sides of the device.
+Since our device relies on technology that isn't easily accessible (medical devices that read brain activity) we wanted to use more creativity to make the device blend in, rather than obviously being the type of device it is. Therefore, given the dimly lit restaurant environment, we decided to use the projector/vibe reading device as a stand for a candle. 
 
 
 ## Part F. Record
 
 \*\***Take a video of your prototyped interaction.**\*\*  
-[Video of Prototype](https://drive.google.com/file/d/1r2ackO6KHVYIbQu3fWM3Rz4h4dXIjIj_/view?usp=sharing)  
+[Video of Prototype](https://drive.google.com/file/d/18hq74xevs4q34luBC3xE5fJ1Ij22pFLc/view?usp=sharing)  
 
 
 
-\*\***Please indicate anyone you collaborated with on this Lab.**\*\* \
-We modified the Tinkerbelle code to work with remotely selected GIFs to match the intention of our project. ChatGPT was used to help adjust Tinkerbelle code.
+\*\***Please indicate anyone you collaborated with on this Lab.**\*\*
+
 
