@@ -2,6 +2,7 @@ import time
 import digitalio
 import board
 from PIL import Image, ImageDraw, ImageFont
+from time import strftime
 import adafruit_rgb_display.st7789 as st7789
 from time import strftime, sleep
 from random import randint, choice
