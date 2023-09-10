@@ -200,10 +200,12 @@ Can you make time interactive? You can look in `screen_test.py` for examples for
 
 Please sketch/diagram your clock idea. (Try using a [Verplank digram](http://www.billverplank.com/IxDSketchBook.pdf)!
 
+[Verplank diagram](https://drive.google.com/file/d/11YD0TcN6_9Qv0og1IGOUlztfuuYZBlRY/view?usp=share_link)
+
 **We strongly discourage and will reject the results of literal digital or analog clock display.**
 
 
-\*\*\***A copy of your code should be in your Lab 2 Github repo.**\*\*\*
+[Code](screen_clock.py)
 
 After you edit and work on the scripts for Lab 2, the files should be upload back to your own GitHub repo! You can push to your personal github repo by adding the files here, commiting and pushing.
 
@@ -219,10 +221,12 @@ After that, Git will ask you to login to your GitHub account to push the updates
 ## Part F. 
 ## Make a short video of your modified barebones PiClock
 
-\*\*\***Take a video of your PiClock.**\*\*\*
+[Video](https://drive.google.com/file/d/1sDaCbkP-czYbq35O1uGaFw5MShf3kpXV/view?usp=share_link)
 
 ## Part G. 
 ## Sketch and brainstorm further interactions and features you would like for your clock for Part 2.
+
+[Next Steps](https://drive.google.com/file/d/1I082Z8aFWdUFsu2N0fBT6X47O5AIKMLn/view?usp=share_link)
 
 
 # Prep for Part 2
@@ -241,5 +245,4 @@ Modify the code from last week's lab to make a new visual interface for your new
 As always, make sure you document contributions and ideas from others explicitly in your writeup.
 
 You are permitted (but not required) to work in groups and share a turn in; you are expected to make equal contribution on any group work you do, and N people's group project should look like N times the work of a single person's lab. What each person did should be explicitly documented. Make sure the page for the group turn in is linked to your Interactive Lab Hub page. 
-
 
