@@ -90,7 +90,7 @@ while True:
     draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
     draw.line([(0, 120), (240, 120)], fill=objct_clr, width=3)
 
-    draw.text((20, 10), "CLOCK", font=font, fill=objct_clr)
+    draw.text((20, 10), "TIME", font=font, fill=objct_clr)
     draw.text((20, 30), str(i), font=font, fill=objct_clr)
     draw.text((160, 10), "HIGH", font=font, fill=objct_clr)
     draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
