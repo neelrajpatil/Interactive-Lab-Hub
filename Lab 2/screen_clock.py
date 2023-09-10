@@ -63,14 +63,11 @@ backlight.value = True
 
 while True:
     # Draw a black filled box to clear the image.
-    draw.rectangle((0, 0, width, height), outline=0, fill=400)
+    draw.rectangle((0, 0, width, height), outline=0, fill="#FFFFFF")
 
     y = 0
     time = strftime("%m/%d/%Y %H:%M:%S")
-    draw.text((x, y), time, font=font, fill="#FFFFFF")
-
-    print (strftime("%m/%d/%Y %H:%M:%S"), end="", flush=True)
-    print("\r", end="", flush=True)
+    draw.text((x, y), time, font=font, fill="#000000")
 
     # Display image.
     disp.image(image, rotation)
