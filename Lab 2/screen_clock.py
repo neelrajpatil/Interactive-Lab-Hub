@@ -61,14 +61,82 @@ backlight = digitalio.DigitalInOut(board.D22)
 backlight.switch_to_output()
 backlight.value = True
 
+buttonA = digitalio.DigitalInOut(board.D23)
+buttonB = digitalio.DigitalInOut(board.D24)
+buttonA.switch_to_input()
+buttonB.switch_to_input()
+
+i = 0
+i_max = 0
+
+wall_pos = [240, 120, 0]
+speed = 5
+jump_height = 7
+jump_count = 16
+jumps = 0
+
+line_width = 3
+
+game_over = False
+lost_msg_1 = "GAME OVER"
+lost_msg_2 = "PRESS DOWN TO RESET"
+
+ball_pos = [[40, 100], [60, 120]]
+
+bgrnd_clr = "#000000"
+objct_clr = "#FFFFFF"
+
 while True:
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0, 0, width, height), outline=0, fill="#FFFFFF")
+    draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
+    draw.line([(0, 120), (240, 120)], fill=objct_clr, width=3)
 
-    y = 0
-    time = strftime("%m/%d/%Y %H:%M:%S")
-    draw.text((x, y), time, font=font, fill="#000000")
+    draw.text((20, 10), "CLOCK", font=font, fill=objct_clr)
+    draw.text((20, 30), str(i), font=font, fill=objct_clr)
+    draw.text((160, 10), "HIGH", font=font, fill=objct_clr)
+    draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
 
-    # Display image.
-    disp.image(image, rotation)
-    sleep(1)
+    if jumps == 0 and not buttonA.value:
+        jumps = jump_count
+
+    if jumps > jump_count // 2:
+        ball_pos[0][1] -= jump_height
+        ball_pos[1][1] -= jump_height
+        jumps -= 1
+    elif jumps > 0:
+        ball_pos[0][1] += jump_height
+        ball_pos[1][1] += jump_height
+        jumps -= 1
+
+    draw.ellipse([tuple(x) for x in ball_pos], fill=objct_clr, width=line_width)
+
+    wall_poses = [[(240 - wall_pos[k], 80), (240 - wall_pos[k], 120)] for k in range(3)]
+
+    for k in range(3):
+        
+        wall_pos[k] = (wall_pos[k] + speed) % 240
+        draw.line(wall_poses[k], fill=objct_clr, width=line_width)
+        if (ball_pos[0][0] < 240 - wall_pos[k] < ball_pos[1][0] or \
+             ball_pos[0][0] < 240 - wall_pos[k] + line_width < ball_pos[1][0]) and \
+            ball_pos[1][1] >= 80:
+            draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
+            draw.text((60, 40), lost_msg_1, font=font, fill=objct_clr)
+            draw.text((10, 60), lost_msg_2, font=font, fill=objct_clr)
+            draw.text((60, 80), "SCORE: " + str(i), font=font, fill=objct_clr)
+            disp.image(image, rotation)
+            game_over = True
+
+    if game_over:
+        while game_over:
+            if not buttonB.value:
+                i_max = max(i_max, i)
+                i = 0
+                jumps = 0
+                wall_pos = [240, 120, 0]
+                ball_pos = [[40, 100], [60, 120]]
+                game_over = False
+
+    else:
+        i += 1
+
+        # Display image.
+        disp.image(image, rotation)
