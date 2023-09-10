@@ -71,9 +71,6 @@ buttonB = digitalio.DigitalInOut(board.D24)
 buttonA.switch_to_input()
 buttonB.switch_to_input()
 
-i = 0
-i_max = 0
-
 wall_pos = [240, 120, 0]
 speed = 5
 jump_height = 7
@@ -91,7 +88,15 @@ ball_pos = [[40, 100], [60, 120]]
 bgrnd_clr = "#000000"
 objct_clr = "#FFFFFF"
 
+start = time.time()
+current = start
+
+i = 0
+i_max = 0
+
 while True:
+    current = time.time()
+    
     draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
     draw.line([(0, 120), (240, 120)], fill=objct_clr, width=3)
 
@@ -135,13 +140,15 @@ while True:
             if not buttonB.value:
                 i_max = max(i_max, i)
                 i = 0
+                start = time.time()
+                current = start
                 jumps = 0
                 wall_pos = [240, 120, 0]
                 ball_pos = [[40, 100], [60, 120]]
                 game_over = False
 
     else:
-        i += 1
+        i = int(current - start)
 
         # Display image.
         disp.image(image, rotation)
