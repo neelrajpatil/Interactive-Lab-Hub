@@ -231,6 +231,11 @@ If I were to iterate on this idea, I would make it actually display the Office a
 
 2. Look at and give feedback on the Part G. for at least 2 other people in the class (and get 2 people to comment on your Part G!)
 
+**Feedback**
+1. I thought this was really cool! Only criticism is that it doesn’t seem super interactive. Maybe add a “fast forward” button or something? 
+2. I love The Office so I really like this project, it’s very intuitive the way you process the counter that determines how many episodes you’ve watched. Only thing I can say is to maybe add more interactions like skipping some episodes or going back to one
+
+
 # Lab 2 Part 2
 
 Pull Interactive Lab Hub updates to your repo.
