@@ -1,12 +1,15 @@
 import time
-import subprocess
 import digitalio
 import board
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_rgb_display.st7789 as st7789
-from adafruit_rgb_display.rgb import color565
-from time import strftime, sleep
-import webcolors
+from time import strftime
+
+from adafruit_lsm6ds.lsm6ds3 import LSM6DS3
+
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+sensor = LSM6DS3(i2c)
 
 # Configuration for CS and DC pins (these are FeatherWing defaults on M0/M4):
 cs_pin = digitalio.DigitalInOut(board.CE0)
@@ -69,12 +72,16 @@ buttonB.switch_to_input()
 
 while True:
     # Draw a black filled box to clear the image.
-    screenColor = color565(*list(webcolors.name_to_rgb('white')))
     draw.rectangle((0, 0, width, height), outline=0, fill=400)
     #TODO: Lab 2 part D work should be filled in here. You should be able to look in cli_clock.py and stats.py 
     time_ = strftime("%m/%d/%Y %H:%M:%S")
-
     y = top
     draw.text((x, y), time_, font=font, fill="#FFFFFF")
     disp.image(image, rotation)
-    time.sleep(1)
+
+    print("Acceleration: X:%.6f, Y: %.6f, Z: %.6f m/s^2" % (sensor.acceleration))
+    print("Gyro X:%.2f, Y: %.2f, Z: %.2f radians/s" % (sensor.gyro))
+    print("")
+    
+    #time.sleep(0.005)
+    #time.sleep(1)
