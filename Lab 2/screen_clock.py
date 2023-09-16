@@ -3,13 +3,8 @@ import digitalio
 import board
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_rgb_display.st7789 as st7789
-from time import strftime
-
-from adafruit_lsm6ds.lsm6ds3 import LSM6DS3
-
-i2c = board.I2C()  # uses board.SCL and board.SDA
-# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
-sensor = LSM6DS3(i2c)
+from time import strftime, sleep
+from random import randint, choice
 
 # Configuration for CS and DC pins (these are FeatherWing defaults on M0/M4):
 cs_pin = digitalio.DigitalInOut(board.CE0)
@@ -82,6 +77,9 @@ while True: # main game loop
     jump_height = 7
     jump_max = 10
 
+    max_wall_height = 55
+    min_wall_height = 20
+
     chosen = False
     difficulty = 0
 
@@ -108,8 +106,11 @@ while True: # main game loop
         disp.image(image, rotation)
         sleep(0.1)
 
+    def random_height():
+        return randint(min_wall_height, max_wall_height)
+
     def reset_game():
-        global jumps, falling, wall_pos, ball_pos, game_over, i, start, current
+        global jumps, falling, wall_pos, ball_pos, game_over, i, start, current, wall_heights
         draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
         draw.text((70, 40), "GO!", font=ImageFont.truetype(font_location, 48), fill=objct_clr)
         disp.image(image, rotation)
@@ -117,6 +118,7 @@ while True: # main game loop
         jumps = 0
         falling = False
         wall_pos = [240, 120, 0]
+        wall_heights = [random_height(), random_height(), random_height()]
         ball_pos = [[40, 100], [60, 120]]
         game_over = False
         i = 0
@@ -160,15 +162,18 @@ while True: # main game loop
 
         draw.ellipse([tuple(x) for x in ball_pos], fill=objct_clr, width=line_width)
 
-        wall_poses = [[(240 - wall_pos[k], 80), (240 - wall_pos[k], 120)] for k in range(3)]
+        wall_poses = [[(240 - wall_pos[k], 120 - wall_heights[k]), (240 - wall_pos[k], 120)] for k in range(3)]
 
         for k in range(3):
             
-            wall_pos[k] = (wall_pos[k] + speed) % 240
+            wall_pos[k] += speed
+            wall_pos[k] %= 240
+            if wall_pos[k] == 0:
+                wall_heights[k] = random_height()
             draw.line(wall_poses[k], fill=objct_clr, width=line_width)
             if (ball_pos[0][0] < 240 - wall_pos[k] < ball_pos[1][0] or \
                 ball_pos[0][0] < 240 - wall_pos[k] + line_width < ball_pos[1][0]) and \
-                ball_pos[1][1] >= 80:
+                ball_pos[1][1] >= 120 - wall_heights[k]:
                 draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
                 draw.text((60, 20), "GAME OVER", font=font, fill=objct_clr)
                 draw.text((60, 40), "SCORE: " + str(i), font=font, fill=objct_clr)
