@@ -68,23 +68,13 @@ buttonB.switch_to_input()
 
 while True: # main game loop
 
-    wall_pos = [240, 120, 0]
-    speed = 5
-    jump_height = 7
-    jump_count = 16
-    jumps = 0
-
     line_width = 3
-
-    game_over = False
-
-    ball_pos = [[40, 100], [60, 120]]
-
     bgrnd_clr = "#000000"
     objct_clr = "#FFFFFF"
 
-    i = 0
-    i_max = 0
+    speed = 5
+    jump_height = 7
+    jump_max = 16
 
     chosen = False
     difficulty = 0
@@ -112,13 +102,23 @@ while True: # main game loop
         disp.image(image, rotation)
         sleep(0.1)
 
-    draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
-    draw.text((70, 40), "GO!", font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 48), fill=objct_clr)
-    disp.image(image, rotation)
-    sleep(1)
+    def reset_game():
+        global jumps, wall_pos, ball_pos, game_over, i, start, current
+        draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
+        draw.text((70, 40), "GO!", font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 48), fill=objct_clr)
+        disp.image(image, rotation)
+        sleep(0.75)
+        jumps = 0
+        wall_pos = [240, 120, 0]
+        ball_pos = [[40, 100], [60, 120]]
+        game_over = False
+        i = 0
+        start = time.time()
+        current = start
 
-    start = time.time()
-    current = start
+    reset_game()
+
+    i_max = 0
     game = True
 
     while game:
@@ -133,9 +133,9 @@ while True: # main game loop
         draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
 
         if jumps == 0 and not buttonA.value:
-            jumps = jump_count
+            jumps = jump_max
 
-        if jumps > jump_count // 2:
+        if jumps > jump_max // 2:
             ball_pos[0][1] -= jump_height
             ball_pos[1][1] -= jump_height
             jumps -= 1
@@ -171,17 +171,7 @@ while True: # main game loop
                     break
                 if not buttonA.value:
                     i_max = max(i_max, i)
-                    i = 0
-                    start = time.time()
-                    current = start
-                    jumps = 0
-                    wall_pos = [240, 120, 0]
-                    ball_pos = [[40, 100], [60, 120]]
-                    game_over = False
-                    draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
-                    draw.text((70, 40), "GO!", font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 48), fill=objct_clr)
-                    disp.image(image, rotation)
-                    sleep(0.5)
+                    reset_game()
 
         else:
             i = int(current - start)
