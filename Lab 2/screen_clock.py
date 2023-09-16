@@ -59,7 +59,8 @@ x = 0
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the
 # same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
-font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
+font_location = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+font = ImageFont.truetype(font_location, 18)
 
 # Turn on the backlight
 backlight = digitalio.DigitalInOut(board.D22)
@@ -110,7 +111,7 @@ while True: # main game loop
     def reset_game():
         global jumps, wall_pos, ball_pos, game_over, i, start, current
         draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
-        draw.text((70, 40), "GO!", font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 48), fill=objct_clr)
+        draw.text((70, 40), "GO!", font=ImageFont.truetype(font_location, 48), fill=objct_clr)
         disp.image(image, rotation)
         sleep(0.75)
         jumps = 0
