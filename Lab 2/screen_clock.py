@@ -80,7 +80,7 @@ while True: # main game loop
 
     speed = 5
     jump_height = 7
-    jump_max = 16
+    jump_max = 10
 
     chosen = False
     difficulty = 0
@@ -109,12 +109,13 @@ while True: # main game loop
         sleep(0.1)
 
     def reset_game():
-        global jumps, wall_pos, ball_pos, game_over, i, start, current
+        global jumps, falling, wall_pos, ball_pos, game_over, i, start, current
         draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
         draw.text((70, 40), "GO!", font=ImageFont.truetype(font_location, 48), fill=objct_clr)
         disp.image(image, rotation)
         sleep(0.75)
         jumps = 0
+        falling = False
         wall_pos = [240, 120, 0]
         ball_pos = [[40, 100], [60, 120]]
         game_over = False
@@ -138,17 +139,24 @@ while True: # main game loop
         draw.text((160, 10), "HIGH", font=font, fill=objct_clr)
         draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
 
-        if jumps == 0 and not buttonA.value:
-            jumps = jump_max
+        if not falling and not buttonA.value:
+            if jumps == jump_max:
+                falling = True
+            else:
+                jumps += 1
 
-        if jumps > jump_max // 2:
+        if jumps and buttonA.value:
+            falling = True
+
+        if jumps and not falling:
             ball_pos[0][1] -= jump_height
             ball_pos[1][1] -= jump_height
-            jumps -= 1
-        elif jumps > 0:
+        elif jumps and falling:
             ball_pos[0][1] += jump_height
             ball_pos[1][1] += jump_height
             jumps -= 1
+            if jumps == 0:
+                falling = False
 
         draw.ellipse([tuple(x) for x in ball_pos], fill=objct_clr, width=line_width)
 
