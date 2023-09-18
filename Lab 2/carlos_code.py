@@ -1,11 +1,17 @@
 import time
+import subprocess
 import digitalio
 import board
-import pygame
+import pygame #!Added pygame library for audio output
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_rgb_display.st7789 as st7789
 from time import strftime, sleep
 from random import randint, choice
+from adafruit_lsm6ds.lsm6ds3 import LSM6DS3
+
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+sensor = LSM6DS3(i2c)
 
 # Configuration for CS and DC pins (these are FeatherWing defaults on M0/M4):
 cs_pin = digitalio.DigitalInOut(board.CE0)
@@ -57,8 +63,6 @@ x = 0
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 font_location = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 font = ImageFont.truetype(font_location, 18)
-font_location = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-font = ImageFont.truetype(font_location, 18)
 
 # Turn on the backlight
 backlight = digitalio.DigitalInOut(board.D22)
@@ -70,22 +74,33 @@ buttonB = digitalio.DigitalInOut(board.D24)
 buttonA.switch_to_input()
 buttonB.switch_to_input()
 
+#! Moved outside while loop because not needed in there
 line_width = 3
 bgrnd_clr = "#000000"
 objct_clr = "#FFFFFF" #default color
-easy_clr = "#00FF00"
+easy_clr = "#00FF00" #! Added colors for easy medium and hard levels, with mapping
 medium_clr = "#FFFF00"
 hard_clr = "#FF0000"
-
 difficulty_to_color = {0: easy_clr, 1: medium_clr, 2: hard_clr}
 
+#! Initializing sound output and setting audio files. Flag needed so audio only plays once per jump
 pygame.init()
 losing_sound = pygame.mixer.Sound('hit_wall.wav')
 jump_sound = pygame.mixer.Sound('jump.mp3')
 jump_sound_flag = False
+
 while True: # main game loop
 
-    
+    g_pos = sensor.acceleration[1]
+    g_acc = -(sensor.acceleration[2]-10.1)
+
+    net_jump = g_pos*g_acc
+
+    #print(net_jump)
+
+    #if net_jump >= 33:
+        
+
     
 
     speed = 5
@@ -113,6 +128,7 @@ while True: # main game loop
 
         draw.text((20, 50 + difficulty * 20), "-", font=font, fill=objct_clr)
 
+        #! Updated to use new color mappings
         draw.text((60, 10), "TIME KILLER", font=font, fill=objct_clr)
         draw.text((40, 50), "EASY", font=font, fill=easy_clr)
         draw.text((40, 70), "MEDIUM", font=font, fill=medium_clr)
@@ -144,6 +160,7 @@ while True: # main game loop
 
     i_max = 0
     game = True
+
     while game:
         current = time.time()
         
@@ -155,16 +172,17 @@ while True: # main game loop
         draw.text((160, 10), "HIGH", font=font, fill=objct_clr)
         draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
 
-        if not falling and not buttonA.value:
+        if not falling and net_jump <= 25: #not buttonA.value:
             if jumps == jump_max:
                 falling = True
             else:
                 jumps += 1
 
-        if jumps and buttonA.value:
+        if jumps and net_jump >= 25:#buttonA.value:
             falling = True
 
         if jumps and not falling:
+            #! Added flag to play sound only once per jump. You might to integrate this into any new code logic you have created with the sensor
             if not jump_sound_flag:
                 jump_sound.play()
                 jump_sound_flag = True
@@ -176,7 +194,25 @@ while True: # main game loop
             jumps -= 1
             if jumps == 0:
                 falling = False
+            
+            #! Resetting flag so sound can play again
             jump_sound_flag = False
+
+        ### NEW CODE (VARIABLES DEFINED ABOVE):
+        if net_jump >= 33 and net_jump < 67 and not falling:
+            while jump_height <=7:
+                ball_pos[0][1] += jump_height
+                ball_pos[1][1] += jump_height
+        elif net_jump >= 67 and net_jump < 100 and not falling:
+            while jump_height < 9:
+                ball_pos[0][1] += jump_height
+                ball_pos[1][1] += jump_height
+        elif net_jump >= 100 and not falling:
+            while jump_height <= jump_max:
+                ball_pos[0][1] += jump_height
+                ball_pos[1][1] += jump_height
+        else:
+            continue                
 
         draw.ellipse([tuple(x) for x in ball_pos], fill=difficulty_to_color[difficulty], width=line_width)
 
