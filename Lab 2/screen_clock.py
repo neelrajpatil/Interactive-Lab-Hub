@@ -79,9 +79,26 @@ while True:
     draw.text((x, y), time_, font=font, fill="#FFFFFF")
     disp.image(image, rotation)
 
-    print("Acceleration: X:%.6f, Y: %.6f, Z: %.6f m/s^2" % (sensor.acceleration))
-    print("Gyro X:%.2f, Y: %.2f, Z: %.2f radians/s" % (sensor.gyro))
-    print("")
+
+    # print('Gyro Position:', sensor.acceleration[1])
+    # print('Gyro Acceleration:', -(sensor.acceleration[2]-10.1))
+
+    jump_height = 7
+    jump_max = 10
+
+    max_wall_height = 55
+    min_wall_height = 20
+
+    g_pos = sensor.acceleration[1]
+    g_acc = -(sensor.acceleration[2]-10.1)
+
+    net_jump = g_pos*g_acc
+
+    print(net_jump)
+        
+
+    # if sensor.acceleration[1] >= 9:
+    #     jump = 
     
     #time.sleep(0.005)
     #time.sleep(1)
