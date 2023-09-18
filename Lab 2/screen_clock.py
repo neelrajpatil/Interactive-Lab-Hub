@@ -5,6 +5,12 @@ from PIL import Image, ImageDraw, ImageFont
 import adafruit_rgb_display.st7789 as st7789
 from time import strftime, sleep
 from random import randint, choice
+from adafruit_lsm6ds.lsm6ds3 import LSM6DS3
+import math
+
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+sensor = LSM6DS3(i2c)
 
 # Configuration for CS and DC pins (these are FeatherWing defaults on M0/M4):
 cs_pin = digitalio.DigitalInOut(board.CE0)
@@ -76,6 +82,17 @@ hard_clr = "#FF0000"
 
 difficulty_to_color = {0: easy_clr, 1: medium_clr, 2: hard_clr}
 
+# def magnitude(x, y, z):
+#     """Compute the magnitude of a 3D vector."""
+#     return math.sqrt(x**2 + y**2 + z**2)
+
+# # Threshold for what constitutes a flick.
+# LOW_FLICK_THRESHOLD = 5  # This is just a guess. You'll need to adjust based on experiments.
+# MED_FLICK_THRESHOLD = 20  # This is just a guess. You'll need to adjust based on experiments.
+# HIGH_FLICK_THRESHOLD = 30  # This is just a guess. You'll need to adjust based on experiments.
+
+# previous_magnitude = 10  # Approximate stationary gravitational magnitude
+
 while True: # main game loop
 
     speed = 5
@@ -146,13 +163,13 @@ while True: # main game loop
         draw.text((160, 10), "HIGH", font=font, fill=objct_clr)
         draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
 
-        if not falling and not buttonA.value:
+        if not falling and sensor.acceleration[2] < 5:
             if jumps == jump_max:
                 falling = True
             else:
                 jumps += 1
 
-        if jumps and buttonA.value:
+        if jumps and sensor.acceleration[2] >= 5:
             falling = True
 
         if jumps and not falling:
