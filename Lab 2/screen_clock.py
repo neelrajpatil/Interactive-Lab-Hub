@@ -67,11 +67,16 @@ buttonB = digitalio.DigitalInOut(board.D24)
 buttonA.switch_to_input()
 buttonB.switch_to_input()
 
-while True: # main game loop
+line_width = 3
+bgrnd_clr = "#000000"
+objct_clr = "#FFFFFF" #default color
+easy_clr = "#00FF00"
+medium_clr = "#FFFF00"
+hard_clr = "#FF0000"
 
-    line_width = 3
-    bgrnd_clr = "#000000"
-    objct_clr = "#FFFFFF"
+difficulty_to_color = {0: easy_clr, 1: medium_clr, 2: hard_clr}
+
+while True: # main game loop
 
     speed = 5
     jump_height = 7
@@ -99,9 +104,9 @@ while True: # main game loop
         draw.text((20, 50 + difficulty * 20), "-", font=font, fill=objct_clr)
 
         draw.text((60, 10), "TIME KILLER", font=font, fill=objct_clr)
-        draw.text((40, 50), "EASY", font=font, fill=objct_clr)
-        draw.text((40, 70), "MEDIUM", font=font, fill=objct_clr)
-        draw.text((40, 90), "HARD", font=font, fill=objct_clr)
+        draw.text((40, 50), "EASY", font=font, fill=easy_clr)
+        draw.text((40, 70), "MEDIUM", font=font, fill=medium_clr)
+        draw.text((40, 90), "HARD", font=font, fill=hard_clr)
 
         disp.image(image, rotation)
         sleep(0.1)
@@ -134,7 +139,7 @@ while True: # main game loop
         current = time.time()
         
         draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
-        draw.line([(0, 120), (240, 120)], fill=objct_clr, width=3)
+        draw.line([(0, 120), (240, 120)], fill=difficulty_to_color[difficulty], width=3)
 
         draw.text((20, 10), "TIME", font=font, fill=objct_clr)
         draw.text((20, 30), str(i), font=font, fill=objct_clr)
@@ -160,7 +165,7 @@ while True: # main game loop
             if jumps == 0:
                 falling = False
 
-        draw.ellipse([tuple(x) for x in ball_pos], fill=objct_clr, width=line_width)
+        draw.ellipse([tuple(x) for x in ball_pos], fill=difficulty_to_color[difficulty], width=line_width)
 
         wall_poses = [[(240 - wall_pos[k], 120 - wall_heights[k]), (240 - wall_pos[k], 120)] for k in range(3)]
 
@@ -170,7 +175,7 @@ while True: # main game loop
             wall_pos[k] %= 240
             if wall_pos[k] == 0:
                 wall_heights[k] = random_height()
-            draw.line(wall_poses[k], fill=objct_clr, width=line_width)
+            draw.line(wall_poses[k], fill=difficulty_to_color[difficulty], width=line_width)
             if (ball_pos[0][0] < 240 - wall_pos[k] < ball_pos[1][0] or \
                 ball_pos[0][0] < 240 - wall_pos[k] + line_width < ball_pos[1][0]) and \
                 ball_pos[1][1] >= 120 - wall_heights[k]:
