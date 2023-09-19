@@ -1,5 +1,5 @@
 # Interactive Prototyping: The Clock of Pi
-**Ivan Nikitovic**
+**COLLABORATORS: Ivan Nikitovic, Carlos Suberviola, Zachary Pakin, and Neelraj Patil**
 
 Does it feel like time is moving strangely during this semester?
 
@@ -238,11 +238,29 @@ After that, Git will ask you to login to your GitHub account to push the updates
 
 # Lab 2 Part 2
 
-Pull Interactive Lab Hub updates to your repo.
+[Verplank diagram](https://drive.google.com/file/d/11YD0TcN6_9Qv0og1IGOUlztfuuYZBlRY/view?usp=share_link)
 
-Modify the code from last week's lab to make a new visual interface for your new clock. You may [extend the Pi](Extending%20the%20Pi.md) by adding sensors or buttons, but this is not required.
+[Part 1 Video Demonstration](https://drive.google.com/file/d/1sDaCbkP-czYbq35O1uGaFw5MShf3kpXV/view?usp=share_link)
 
-As always, make sure you document contributions and ideas from others explicitly in your writeup.
+[Part 1 Next Steps](https://drive.google.com/file/d/1I082Z8aFWdUFsu2N0fBT6X47O5AIKMLn/view?usp=share_link)
 
-You are permitted (but not required) to work in groups and share a turn in; you are expected to make equal contribution on any group work you do, and N people's group project should look like N times the work of a single person's lab. What each person did should be explicitly documented. Make sure the page for the group turn in is linked to your Interactive Lab Hub page. 
+[Code](screen_clock.py)
 
+[Lab 2 Final Video Demonstration](https://youtu.be/cHqTvsCtO7c?si=qOWwWLMEMDX7h-2S)
+
+For the second part of Lab 2, we decided to extend our Part 1 by adding:
+- physical input (via accelerometer)
+- difficulty options
+- variable wall height
+- variable jump height
+- colors
+
+To play the current version of our game, the player rolls the accelerometer on its side for a variable amount of time to signal how high the ball should jump.
+The goal of the game is to reach as high of a score as possible, measured in seconds, so that the player can brag about it to her or his friends during IDD lab.
+We wish to add a leaderboard to the current implementation, to make the bragging process easier.
+
+Work breakdown:
+- Ivan: implemented the initial game design
+- Zack: worked on variability and color schemes
+- Carlos: worked on accelerometer and provided interface in code
+- Neelraj: coupled sensor input data with game input
