@@ -1,5 +1,7 @@
 # Chatterboxes
-**NAMES OF COLLABORATORS HERE**
+**NAMES OF COLLABORATORS HERE**  
+[I used ChatGPT to help with Python input from CLI](https://chat.openai.com/share/81da0c38-cd3d-402d-b521-188989bfccf7)  
+[I used the Python translate library for Google Translate integration to my app](https://pypi.org/project/translate/)  
 <!-- [![Watch the video](https://user-images.githubusercontent.com/1128669/135009222-111fe522-e6ba-46ad-b6dc-d1633d21129c.png)](https://www.youtube.com/embed/Q8FWzLMobx0?start=19)
 
 In this lab, we want you to design interaction with a speech-enabled device--something that listens and talks to you. This device can do anything *but* control lights (since we already did that in Lab 1).  First, we want you first to storyboard what you imagine the conversational interaction to be like. Then, you will use wizarding techniques to elicit examples of what people might say, ask, or respond.  We then want you to use the examples collected from at least two other people to inform the redesign of the device.
@@ -114,7 +116,7 @@ python test_microphone.py -m en
 
 
 
-### Serving Pages
+<!-- ### Serving Pages
 
 In Lab 1, we served a webpage with flask. In this lab, you may find it useful to serve a webpage for the controller on a remote device. Here is a simple example of a webserver.
 
@@ -130,28 +132,75 @@ pi@ixe00:~/Interactive-Lab-Hub/Lab 3 $ python server.py
  * Debugger is active!
  * Debugger PIN: 162-573-883
 ```
-From a remote browser on the same network, check to make sure your webserver is working by going to `http://<YourPiIPAddress>:5000`. You should be able to see "Hello World" on the webpage.
+From a remote browser on the same network, check to make sure your webserver is working by going to `http://<YourPiIPAddress>:5000`. You should be able to see "Hello World" on the webpage. -->
 
 ### Storyboard
 
 Storyboard and/or use a Verplank diagram to design a speech-enabled device. (Stuck? Make a device that talks for dogs. If that is too stupid, find an application that is better than that.) 
 
-\*\***Post your storyboard and diagram here.**\*\*
+![Translator Storyboard](storyboard.jpg) 
+
 
 Write out what you imagine the dialogue to be. Use cards, post-its, or whatever method helps you develop alternatives or group responses. 
 
 \*\***Please describe and document your process.**\*\*
 
+The program works by providing instructions to each participant in the intended language. With the suggested speech to text library, it is important to set a time limit on the input, as it does not time out on its own. Additioanlly, I modified the program to only output complete (confident) results, instead of partial text matches. 
+
+The below dialog assumes that the text input is heard correctly.  
+
+Device: You will have 8 seconds to record a single phrase to be translated. You must speak continuously in English. You may begin after the beep.
+
+Human 1: Hello! How are you?
+
+Device: ¡Hola! ¿Qué tal?
+
+Device: Vas a tener 8 segundos para grabar una respuesta que será traducida al inglés. Tienes que hablar continuamente en español. Empieza después del tono.
+
+Human 2: Estoy triste porque quiero volver a España
+
+Device: I am Trieste because I want .
+
+Failing Example 1: This example assumes that the speech to text engine does not properly transcribe the voice input. 
+
+Device: You will have 8 seconds to record a single phrase to be translated. You must speak continuously in English. You may begin after the beep.
+
+Human 1: Hello! How are you?
+
+Device: ¡Hola! ¿Qué tal?
+
+Device: Vas a tener 8 segundos para grabar una respuesta que será traducida al inglés. Tienes que hablar continuamente en español. Empieza después del tono.
+
+Human 2: Estoy triste porque quiero volver a España
+
+*What the device understood: Estoy triste porque quiero volver a las canas*
+
+Device: I am sad because I want to go back to the grey hairs.
+
+Failing Example 2: This example assumes that the Google Translate API used by the Python translator returns an incorrect translation.
+
+Device: You will have 8 seconds to record a single phrase to be translated. You must speak continuously in English. You may begin after the beep.
+
+Human 1: Hello! What is your favorite Spanish idiom?
+
+Device: ¡Hola! ¿Cuál es tu modismo español favorito?
+
+Device: Vas a tener 8 segundos para grabar una respuesta que será traducida al inglés. Tienes que hablar continuamente en español. Empieza después del tono.
+
+Human 2: Estar más sano que una pera.
+
+Device: To be healthier than a pear.  
+*Although this is a correct literal translation, it is not well done, as it does not express the same idiomatic meaning.*
 ### Acting out the dialogue
 
 Find a partner, and *without sharing the script with your partner* try out the dialogue you've designed, where you (as the device designer) act as the device you are designing.  Please record this interaction (for example, using Zoom's record feature).
 
 \*\***Describe if the dialogue seemed different than what you imagined when it was acted out, and how.**\*\*
 
-### Wizarding with the Pi (optional)
+<!-- ### Wizarding with the Pi (optional)
 In the [demo directory](./demo), you will find an example Wizard of Oz project. In that project, you can see how audio and sensor data is streamed from the Pi to a wizard controller that runs in the browser.  You may use this demo code as a template. By running the `app.py` script, you can see how audio and sensor data (Adafruit MPU-6050 6-DoF Accel and Gyro Sensor) is streamed from the Pi to a wizard controller that runs in the browser `http://<YouPiIPAddress>:5000`. You can control what the system says from the controller as well!
 
-\*\***Describe if the dialogue seemed different than what you imagined, or when acted out, when it was wizarded, and how.**\*\*
+\*\***Describe if the dialogue seemed different than what you imagined, or when acted out, when it was wizarded, and how.**\*\* -->
 
 # Lab 3 Part 2
 
