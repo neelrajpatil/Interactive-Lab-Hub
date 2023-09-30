@@ -6,11 +6,21 @@ from gtts import gTTS
 from pydub import AudioSegment
 from pydub.playback import play
 import pyaudio
+import digitalio
+import board
+import requests
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
+API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
+headers = {"Authorization": "Bearer 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"}
+
+buttonA = digitalio.DigitalInOut(board.D23)
+buttonB = digitalio.DigitalInOut(board.D24)
+buttonA.switch_to_input()
+buttonB.switch_to_input()
 
 # Function to record audio using a microphone library (e.g., PyAudio)
 def record_audio(driver, output_file_path, duration, lang):
@@ -69,6 +79,10 @@ def text_to_speech(text, output_file, lang):
     tts = gTTS(text=text, lang=lang)  # Specify the language (e.g., "es" for Spanish)
     tts.save(output_file)
 
+def query(payload):
+	response = requests.post(API_URL, headers=headers, json=payload)
+	return response.json()
+
 def main():
     translator_en = Translator(to_lang="es")
     translator_es = Translator(to_lang="en", from_lang="es")
@@ -81,14 +95,43 @@ def main():
     en_audio_file = "english.wav"
     es_audio_file = "spanish.wav"
 
+    translated_text_en = None
+    translated_text_es = None
+
     while True:
 
-        play_audio("beep.wav")
-        record_audio(audio_driver, en_audio_file, 8, "English")
-        play_audio("beep.wav")
+        ai_answered = False
+        if translated_text_es:
+            chosen = False
+            print("Press A to respond...")
+            print("Press B to ask AI...")
+            while not chosen:
+                if not buttonA.value:
+                    chosen = True
+                if not buttonB.value:
+                    print("Waiting for AI...")
+                    chosen = True
+                    ai_answered = True
+                    ai_output = query({
+                        "inputs": {
+                            "text": translated_text_es
+                        },
+                    })
+                    if "error" in ai_output:
+                        print("AI failed to respond.")
+                        ai_answered = False
+                    print(ai_output)
 
-        recognized_text_en = recognize_speech(rec_en, en_audio_file)
-        print("Recognized text:", recognized_text_en)
+        if not ai_answered:
+            play_audio("beep.wav")
+            record_audio(audio_driver, en_audio_file, 8, "English")
+            play_audio("beep.wav")
+
+            recognized_text_en = recognize_speech(rec_en, en_audio_file)
+            print("Recognized text:", recognized_text_en)
+        else:
+            recognized_text_en = ai_output["generated_text"]
+            print("AI Generated text:", recognized_text_en)
 
         translated_text_en = translator_en.translate(recognized_text_en)
         print("Translated text:", translated_text_en)
