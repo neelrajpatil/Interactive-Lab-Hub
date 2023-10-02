@@ -217,9 +217,14 @@ For Part 2, you will redesign the interaction with the speech-enabled device usi
 
 ## Prep for Part 2
 
-1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings...
-2. What are other modes of interaction _beyond speech_ that you might also use to clarify how to interact?
+1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings...  
+
+The timing of the Part 1 prototype has a bit of awkward timing, as the translation engine and text to speech take longer than apps we are familiar with (like Google Translate). Also, given that the voice to text engine is not very accurate, the translation could make little sense/not match the original phrase. Finally, since the Part 1 implementation uses a timer to cut off input, that can be awkward for short or long phrases (currently set at 8 seconds for cutoff)    
+2. What are other modes of interaction _beyond speech_ that you might also use to clarify how to interact?  
+We want to take advantage of button input rather than artifically starting a script that is bound by input time. We could also add instructions/the live translation to the display for a visual signal.  
+
 3. Make a new storyboard, diagram and/or script based on these reflections.
+![New Storyboard](storyboard2.jpg)  
 
 ## Prototype your system
 
@@ -228,7 +233,8 @@ The system should:
 * use one or more sensors
 * require participants to speak to it. 
 
-*Document how the system works*
+*Document how the system works*  
+Our Python script uses the voice to text library, expecting English input from the tour guide. One of the two buttons is our input sensor being used. After the input is complete, the Python translation library we are using translates the phrase into the target langauge (currently set to Spanish) and then reads out the translated phrase using the text to speech library (with Spanish lang pack). To demonstrate a tour attendee asking a question back to the tour guide, the program then allows the non-English speaking attendee to speak in their language which is then translated and read out to the tour guide in English. Since tour guides can't remember everything, we added a ChatGPT feature that only the tour guide can access. The tour guide can press the other button on their device to have their speech transcribed, crafted into a prompt, and sent to ChatGPT for a response. The response from GPT is then translated for the attendees and read to them in their preferred language. GPT will speak from the perspective of the tourguide, to prevent embarassing them for not knowing a detail of the tour.  
 
 *Include videos or screencaptures of both the system and the controller.*
 
