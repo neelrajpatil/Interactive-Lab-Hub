@@ -244,18 +244,17 @@ Try to get at least two people to interact with your system. (Ideally, you would
 Answer the following:
 
 ### What worked well about the system and what didn't?
-\*\**your answer here*\*\*
+The GPT feature generally worked well, answering questions in a short amount of time and working decently for our use case. Additionally, the text to speech library worked well with transcribing our text. However, the speech to text library suggested frequently made mistakes and misunderstood basic statements, which therefore made the translation incorrect. 
 
 ### What worked well about the controller and what didn't?
 
-\*\**your answer here*\*\*
+Since we used the buttons to control the transcription and translation mode, there were no errors with that aspect of the controller. However, since there was some wizarding involved and no directions were spoken/shown on the screen, a user would struggle to take advantage of the GPT & translation feature without knowing the button mappings or having the terminal output that the "wizards" had. Also, since translation and transcription libraries were involved, there were delays that were below industry standard (Google Translate and ChatGPT) and slightly awkward
 
 ### What lessons can you take away from the WoZ interactions for designing a more autonomous version of the system?
 
-\*\**your answer here*\*\*
+Since our program is fully functional, the only wizarding invovled was providing indications to the user of which buttons to push for the desired feature. Therefore, we would only need to add an instructions screen or voice recording to replace our wizarding. As a general lesson, we learned that it is important to think of this before starting, rather than waiting until the end and needing to add signals of interaction. 
 
 
 ### How could you use your system to create a dataset of interaction? What other sensing modalities would make sense to capture?
 
-\*\**your answer here*\*\*
-
+Since our system has the use case of guided tours and calls to chatGPT cost money, it would make sense to potentially cache information from each tour, such that if the information has already been gathered, it can be recalled on further tours. Additionally, perhaps instead of using the buttons, there could be an activation phrase like Hey Siri for the device to listen to what information is needed. The device could also utilize a GPS to automatically provide background information on a site in various languages depending on where the visitors are. 
