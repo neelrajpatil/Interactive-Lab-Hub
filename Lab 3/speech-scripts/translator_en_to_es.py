@@ -120,7 +120,7 @@ def main():
                     if "error" in ai_output:
                         print("AI failed to respond.")
                         ai_answered = False
-                    print(ai_output)
+                    # print(ai_output)
 
         if not ai_answered:
             play_audio("beep.wav")
