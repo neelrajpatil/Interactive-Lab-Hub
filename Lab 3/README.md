@@ -236,10 +236,12 @@ The system should:
 *Document how the system works*  
 Our Python script uses the voice to text library, expecting English input from the tour guide. One of the two buttons is our input sensor being used. After the input is complete, the Python translation library we are using translates the phrase into the target langauge (currently set to Spanish) and then reads out the translated phrase using the text to speech library (with Spanish lang pack). To demonstrate a tour attendee asking a question back to the tour guide, the program then allows the non-English speaking attendee to speak in their language which is then translated and read out to the tour guide in English. Since tour guides can't remember everything, we added a ChatGPT feature that only the tour guide can access. The tour guide can press the other button on their device to have their speech transcribed, crafted into a prompt, and sent to ChatGPT for a response. The response from GPT is then translated for the attendees and read to them in their preferred language. GPT will speak from the perspective of the tourguide, to prevent embarassing them for not knowing a detail of the tour.  
 
-*Include videos or screencaptures of both the system and the controller.*
+![CONTROLLER](controller.jpeg)
 
 ## Test the system
 Try to get at least two people to interact with your system. (Ideally, you would inform them that there is a wizard _after_ the interaction, but we recognize that can be hard.)
+
+[VIDEO OF THE INERACTION](https://youtu.be/oftDxtCWuAM?si=WFGGKyJUNgfFA3Ft)
 
 Answer the following:
 
