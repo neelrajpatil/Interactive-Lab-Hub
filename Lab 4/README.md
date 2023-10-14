@@ -1,6 +1,6 @@
 # Ph-UI!!!
 
-**NAMES OF COLLABORATORS HERE**
+**COLLABORATORS: Carlos Suberviola, Neelraj Patil, Ivan Nikitovic**
 
 
 For lab this week, we focus both on sensing, to bring in new modes of input into your devices, as well as prototyping the physical look and feel of the device. You will think about the physical form the device needs to perform the sensing as well as present the display or feedback about what was sensed. 
@@ -180,12 +180,13 @@ You can go to the [SparkFun GitHub Page](https://github.com/sparkfun/Qwiic_Proxi
 
 Usually, sensors need to be positioned in specific locations or orientations to make them useful for their application. Now that you've tried a bunch of the sensors, pick one that you would like to use, and an application where you use the output of that sensor for an interaction. For example, you can use a distance sensor to measure someone's height if you position it overhead and get them to stand under it.
 
-**\*\*\*Draw 5 sketches of different ways you might use your sensor, and how the larger device needs to be shaped in order to make the sensor useful.\*\*\***
+**\*\*\*Draw 5 sketches of different ways you might use your sensor, and how the larger device needs to be shaped in order to make the sensor useful.\*\*\***  
+![Capacitive Touch Sensor Sketches](5sketches.jpeg)  
 
-**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***
-
-**\*\*\*Pick one of these designs to prototype.\*\*\***
-
+**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***  
+These sketches raise the question of the reliability of the touch sensor, as ghost touches may ruin a game/application and cause unintended behavior. Additionally, it will be challenging to physically create our prototype with our materials due to limitiations such as cord length. We could create a smaller scale design as well. Depending on which option we choose, we would need to create some physical mockup using cardboard. 
+**\*\*\*Pick one of these designs to prototype.\*\*\***  
+We will prototype the mastermind game.
 
 ### Part D
 ### Physical considerations for displaying information and housing parts
@@ -224,17 +225,24 @@ Here is an example:
 
 Think about how you want to present the information about what your sensor is sensing! Design a paper display for your project that communicates the state of the Pi and a sensor. Ideally you should design it so that you can slide the Pi out to work on the circuit or programming, and then slide it back in and reattach a few wires to be back in operation.
  
-**\*\*\*Sketch 5 designs for how you would physically position your display and any buttons or knobs needed to interact with it.\*\*\***
+**\*\*\*Sketch 5 designs for how you would physically position your display and any buttons or knobs needed to interact with it.\*\*\***  
+![5 Screen Mounting Options](5mounts.jpeg)  
+**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***  
+Given the number of wires we have running from the Pi, it would be challenging to mount the screen inside the box like we showed in 4/5 sketches. Since we are using a thin cardboard box, without additional support, the box may not support the weight of the devices. Therefore, we need to physically prototype how we would mount the display on top of the box with minimal wires showing (so not to disturb the aesthetic of the game/device).
 
-**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***
+**\*\*\*Pick one of these display designs to integrate into your prototype.\*\*\***  
+We will mount the screen on top of the box.  
 
-**\*\*\*Pick one of these display designs to integrate into your prototype.\*\*\***
+**\*\*\*Explain the rationale for the design.\*\*\*** (e.g. Does it need to be a certain size or form or need to be able to be seen from a certain distance?)  
+We want the screen to be horizontal so more text can be shown at once. The display needs to face the player guessing the code so they can receive feedback on their guesses. Given the placement of the touch sensors inside of the box, we need to have the display outside the box itself, such as on top.
 
-**\*\*\*Explain the rationale for the design.\*\*\*** (e.g. Does it need to be a certain size or form or need to be able to be seen from a certain distance?)
 
 Build a cardboard prototype of your design.
 
-**\*\*\*Document your rough prototype.\*\*\***
+**\*\*\*Document your rough prototype.\*\*\***  
+![Image 1](prototype1.jpeg)  
+![Image 2](prototype2.jpeg)  
+![Image 3](prototype3.jpeg)  
 
 
 LAB PART 2
