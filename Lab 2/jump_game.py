@@ -1,4 +1,5 @@
 import time
+import subprocess
 import digitalio
 import board
 from PIL import Image, ImageDraw, ImageFont
@@ -6,7 +7,6 @@ import adafruit_rgb_display.st7789 as st7789
 from time import strftime, sleep
 from random import randint, choice
 from adafruit_lsm6ds.lsm6ds3 import LSM6DS3
-import math
 
 i2c = board.I2C()  # uses board.SCL and board.SDA
 # i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
@@ -67,37 +67,27 @@ font = ImageFont.truetype(font_location, 18)
 backlight = digitalio.DigitalInOut(board.D22)
 backlight.switch_to_output()
 backlight.value = True
-buttonA = digitalio.DigitalInOut(board.D23)
-buttonB = digitalio.DigitalInOut(board.D24)
-buttonA.switch_to_input()
-buttonB.switch_to_input()
 
 buttonA = digitalio.DigitalInOut(board.D23)
 buttonB = digitalio.DigitalInOut(board.D24)
 buttonA.switch_to_input()
 buttonB.switch_to_input()
-
-line_width = 3
-bgrnd_clr = "#000000"
-objct_clr = "#FFFFFF" #default color
-easy_clr = "#00FF00"
-medium_clr = "#FFFF00"
-hard_clr = "#FF0000"
-
-difficulty_to_color = {0: easy_clr, 1: medium_clr, 2: hard_clr}
-
-# def magnitude(x, y, z):
-#     """Compute the magnitude of a 3D vector."""
-#     return math.sqrt(x**2 + y**2 + z**2)
-
-# # Threshold for what constitutes a flick.
-# LOW_FLICK_THRESHOLD = 5  # This is just a guess. You'll need to adjust based on experiments.
-# MED_FLICK_THRESHOLD = 20  # This is just a guess. You'll need to adjust based on experiments.
-# HIGH_FLICK_THRESHOLD = 30  # This is just a guess. You'll need to adjust based on experiments.
-
-# previous_magnitude = 10  # Approximate stationary gravitational magnitude
 
 while True: # main game loop
+
+    g_pos = sensor.acceleration[1]
+    g_acc = -(sensor.acceleration[2]-10.1)
+
+    net_jump = g_pos*g_acc
+
+    #print(net_jump)
+
+    #if net_jump >= 33:
+        
+
+    line_width = 3
+    bgrnd_clr = "#000000"
+    objct_clr = "#FFFFFF"
 
     speed = 5
     jump_height = 7
@@ -125,9 +115,9 @@ while True: # main game loop
         draw.text((20, 50 + difficulty * 20), "-", font=font, fill=objct_clr)
 
         draw.text((60, 10), "TIME KILLER", font=font, fill=objct_clr)
-        draw.text((40, 50), "EASY", font=font, fill=easy_clr)
-        draw.text((40, 70), "MEDIUM", font=font, fill=medium_clr)
-        draw.text((40, 90), "HARD", font=font, fill=hard_clr)
+        draw.text((40, 50), "EASY", font=font, fill=objct_clr)
+        draw.text((40, 70), "MEDIUM", font=font, fill=objct_clr)
+        draw.text((40, 90), "HARD", font=font, fill=objct_clr)
 
         disp.image(image, rotation)
         sleep(0.1)
@@ -160,20 +150,20 @@ while True: # main game loop
         current = time.time()
         
         draw.rectangle((0, 0, width, height), outline=0, fill=bgrnd_clr)
-        draw.line([(0, 120), (240, 120)], fill=difficulty_to_color[difficulty], width=3)
+        draw.line([(0, 120), (240, 120)], fill=objct_clr, width=3)
 
         draw.text((20, 10), "TIME", font=font, fill=objct_clr)
         draw.text((20, 30), str(i), font=font, fill=objct_clr)
         draw.text((160, 10), "HIGH", font=font, fill=objct_clr)
         draw.text((160, 30), str(i_max), font=font, fill=objct_clr)
 
-        if not falling and sensor.acceleration[2] < 5:
+        if not falling and net_jump <= 25: #not buttonA.value:
             if jumps == jump_max:
                 falling = True
             else:
                 jumps += 1
 
-        if jumps and sensor.acceleration[2] >= 5:
+        if jumps and net_jump >= 25:#buttonA.value:
             falling = True
 
         if jumps and not falling:
@@ -186,7 +176,23 @@ while True: # main game loop
             if jumps == 0:
                 falling = False
 
-        draw.ellipse([tuple(x) for x in ball_pos], fill=difficulty_to_color[difficulty], width=line_width)
+        ### NEW CODE (VARIABLES DEFINED ABOVE):
+        if net_jump >= 33 and net_jump < 67 and not falling:
+            while jump_height <=7:
+                ball_pos[0][1] += jump_height
+                ball_pos[1][1] += jump_height
+        elif net_jump >= 67 and net_jump < 100 and not falling:
+            while jump_height < 9:
+                ball_pos[0][1] += jump_height
+                ball_pos[1][1] += jump_height
+        elif net_jump >= 100 and not falling:
+            while jump_height <= jump_max:
+                ball_pos[0][1] += jump_height
+                ball_pos[1][1] += jump_height
+        else:
+            continue                
+
+        draw.ellipse([tuple(x) for x in ball_pos], fill=objct_clr, width=line_width)
 
         wall_poses = [[(240 - wall_pos[k], 120 - wall_heights[k]), (240 - wall_pos[k], 120)] for k in range(3)]
 
@@ -196,7 +202,7 @@ while True: # main game loop
             wall_pos[k] %= 240
             if wall_pos[k] == 0:
                 wall_heights[k] = random_height()
-            draw.line(wall_poses[k], fill=difficulty_to_color[difficulty], width=line_width)
+            draw.line(wall_poses[k], fill=objct_clr, width=line_width)
             if (ball_pos[0][0] < 240 - wall_pos[k] < ball_pos[1][0] or \
                 ball_pos[0][0] < 240 - wall_pos[k] + line_width < ball_pos[1][0]) and \
                 ball_pos[1][1] >= 120 - wall_heights[k]:
