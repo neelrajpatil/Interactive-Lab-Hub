@@ -3,10 +3,25 @@ import board
 import busio
 
 import adafruit_mpr121
+import qwiic_oled_display
 
 i2c = busio.I2C(board.SCL, board.SDA)
 
 mpr121 = adafruit_mpr121.MPR121(i2c)
+
+oled = qwiic_oled_display.QwiicOledDisplay()
+
+def oled_print(str):
+    oled.begin()
+
+    oled.clear(oled.PAGE)  #  Clear the display's buffer
+
+    oled.print(str)  #  Add "Hello World" to buffer
+
+    #  To actually draw anything on the display, you must call the display() function. 
+    oled.display()
+
+oled_print("mastermind.py")
 
 # Create a list of fruits
 fruits = ["apple", "banana", "orange", "pear"]
@@ -61,11 +76,11 @@ codebreaker = input("Enter the codebreaker's name: ")
 secret_code = [[None, None], [None, None]]
 
 for i in range(4):
-    print("touch it")
+    oled_print("Codemaker: touch it")
     pos, fruit = get_input()
     i, j = get_position(pos)
     secret_code[i][j] = map_sensor_to_fruit(fruit)
-    print(f"registered {to_fruit_dict[fruit]} at {pos}")
+    oled_print(f"{to_fruit_dict[fruit]} at {pos}")
     time.sleep(1)
 
 print(f"secret code: {secret_code}")
@@ -82,24 +97,23 @@ player_guess = [[None, None], [None, None]]
 while True:
 
     ## Codebreaker's turn ##
-    print("Codebreaker's turn:")
     for i in range(4):
-        print("touch it")
+        oled_print("Codebreaker: touch it")
         pos, fruit = get_input()
         i, j = get_position(pos)
         player_guess[i][j] = map_sensor_to_fruit(fruit)
-        print(f"registered {to_fruit_dict[fruit]} at {pos}")
+        oled_print(f"{to_fruit_dict[fruit]} at {pos}")
         time.sleep(1)
     
     if num_guesses >= guess_limit:
-        print("Sorry, you have run out of guesses. The codemaker wins!")
+        oled_print("The codemaker wins!")
         break
 
     print('player guess:', player_guess)
 
     ## Check for correctness ##
     if player_guess == secret_code:
-        print("Congratulations! You guessed the correct code!")
+        oled_print("Congratulations!")
         break
 
     num_correct_items = 0
@@ -114,8 +128,8 @@ while True:
 
     num_guesses += 1
 
-    print(f"You have {num_correct_items} correct items and {num_correct_positions} correct positions.")
-    print(f"You have {guess_limit-num_guesses} tries left")
+    oled_print(f"{num_correct_items} correct items and {num_correct_positions} correct positions.")
+    oled_print(f"{guess_limit-num_guesses} tries left")
 
 ## Determine the winner ##
 if player_guess == secret_code:
