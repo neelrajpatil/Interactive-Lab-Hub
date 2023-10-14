@@ -1,12 +1,22 @@
+import time
+import board
+import busio
+
+import adafruit_mpr121
+
+i2c = busio.I2C(board.SCL, board.SDA)
+
+mpr121 = adafruit_mpr121.MPR121(i2c)
+
 # Create a list of fruits
 fruits = ["apple", "banana", "orange", "pear"]
 
 # Assign a unique keyboard key to each fruit
 to_fruit_dict = {
-    "0": "apple",
-    "1": "banana",
-    "2": "orange",
-    "3": "pear"
+    8: "apple",
+    9: "banana",
+    10: "orange",
+    11: "pear"
 }
 
 # Map a fruit to a keyboard key
@@ -29,23 +39,42 @@ def get_position(signal):
     j = signal % 2
     return i, j
 
+def get_input():
+    pos = None
+    fruit = None
+    while pos is None or fruit is None:
+        for i in range(4):
+            if mpr121[i].value:
+                pos = i
+
+        for j in range(8, 12):
+            if mpr121[j].value:
+                fruit = j
+
+    return pos, fruit
+
 ## Get the codemaker and codebreaker players ##
 codemaker = input("Enter the codemaker's name: ")
 codebreaker = input("Enter the codebreaker's name: ")
 
 ## Codemaker chooses the secret code ##
 secret_code = [[None, None], [None, None]]
-for _ in range(4):
-    # for j in range(2):
-    i, j = get_position(signal)
-    secret_code[i][j] = get_codemaker_input(i, j)
+
+for i in range(4):
+    print("touch it")
+    pos, fruit = get_input()
+    i, j = get_position(pos)
+    secret_code[i][j] = map_sensor_to_fruit(fruit)
+    print(f"registered {to_fruit_dict[fruit]} at {pos}")
+    time.sleep(1)
+
+print(f"secret code: {secret_code}")
+
 
 ## Set the limit on the number of guesses ##
 guess_limit = 5
 ## Initialize the number of guesses the codebreaker has made ##
 num_guesses = 0
-
-print('secret code:', secret_code)
 
 player_guess = [[None, None], [None, None]]
 
@@ -54,10 +83,13 @@ while True:
 
     ## Codebreaker's turn ##
     print("Codebreaker's turn:")
-    for _ in range(2):
-        #for j in range(2):
-        i, j = get_position(signal)
-        player_guess[i][j] = get_codebreaker_guess(i,j)#input(f"{codebreaker}, enter your guess for row {i+1} and column {j+1}: ")
+    for i in range(4):
+        print("touch it")
+        pos, fruit = get_input()
+        i, j = get_position(pos)
+        player_guess[i][j] = map_sensor_to_fruit(fruit)
+        print(f"registered {to_fruit_dict[fruit]} at {pos}")
+        time.sleep(1)
     
     if num_guesses >= guess_limit:
         print("Sorry, you have run out of guesses. The codemaker wins!")
