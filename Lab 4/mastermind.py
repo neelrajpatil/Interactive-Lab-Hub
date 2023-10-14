@@ -24,14 +24,14 @@ def oled_print(str):
 oled_print("mastermind.py")
 
 # Create a list of fruits
-fruits = ["apple", "banana", "orange", "pear"]
+fruits = ["grape", "apple", "tomato", "cheese"]
 
 # Assign a unique keyboard key to each fruit
 to_fruit_dict = {
-    8: "apple",
-    9: "banana",
-    10: "orange",
-    11: "pear"
+    8: "grape",
+    9: "apple",
+    10: "tomato",
+    11: "cheese"
 }
 
 # Map a fruit to a keyboard key
@@ -129,7 +129,9 @@ while True:
     num_guesses += 1
 
     oled_print(f"{num_correct_items} correct items and {num_correct_positions} correct positions.")
+    time.sleep(3)
     oled_print(f"{guess_limit-num_guesses} tries left")
+    time.sleep(1)
 
 ## Determine the winner ##
 if player_guess == secret_code:
