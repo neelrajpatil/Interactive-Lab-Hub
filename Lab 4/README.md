@@ -304,7 +304,7 @@ The following resources are good starts on how to stream video:
 * [Live video streaming over network with OpenCV and ImageZMQ](https://pyimagesearch.com/2019/04/15/live-video-streaming-over-network-with-opencv-and-imagezmq/) -->
 ### Part G
 ### Record
-
+[Recording](https://drive.google.com/file/d/1Gne6Gwxfa9Ij6e318CtOxyy4Rzdhj72B/view?usp=sharing)  
 Document all the prototypes and iterations you have designed and worked on! Again, deliverables for this lab are writings, sketches, photos, and videos that show what your prototype:
 * "Looks like": shows how the device should look, feel, sit, weigh, etc.
 * "Works like": shows what the device can do
