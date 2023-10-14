@@ -1,12 +1,12 @@
 # Ph-UI!!!
 
-**NAMES OF COLLABORATORS HERE**
+**COLLABORATORS: Carlos Suberviola, Neelraj Patil, Ivan Nikitovic**
 
 
-For lab this week, we focus both on sensing, to bring in new modes of input into your devices, as well as prototyping the physical look and feel of the device. You will think about the physical form the device needs to perform the sensing as well as present the display or feedback about what was sensed. 
+<!-- For lab this week, we focus both on sensing, to bring in new modes of input into your devices, as well as prototyping the physical look and feel of the device. You will think about the physical form the device needs to perform the sensing as well as present the display or feedback about what was sensed.  -->
 
 ## Part 1 Lab Preparation
-
+<!-- 
 ### Get the latest content:
 As always, pull updates from the class Interactive-Lab-Hub to both your Pi and your own GitHub repo. As we discussed in the class, there are 2 ways you can do so:
 
@@ -56,7 +56,7 @@ For submission, the readme.md page for this lab should be edited to include the 
 * Upload any materials that explain what you did, into your lab 4 repository, and link them in your lab 4 readme.md.
 * Link your Lab 4 readme.md in your main Interactive-Lab-Hub readme.md. 
 * Group members can turn in one repository, but make sure your Hub readme.md links to the shared repository.
-* Labs are due on Mondays, make sure to submit your Lab 4 readme.md to Canvas.
+* Labs are due on Mondays, make sure to submit your Lab 4 readme.md to Canvas. -->
 
 
 ## Lab Overview
@@ -79,7 +79,7 @@ G) [Record the interaction](#part-g)
 
 ### Part A
 ### Capacitive Sensing, a.k.a. Human-Twizzler Interaction 
-
+<!-- 
 We want to introduce you to the [capacitive sensor](https://learn.adafruit.com/adafruit-mpr121-gator) in your kit. It's one of the most flexible input devices we are able to provide. At boot, it measures the capacitance on each of the 12 contacts. Whenever that capacitance changes, it considers it a user touch. You can attach any conductive material. In your kit, you have copper tape that will work well, but don't limit yourself! In the example below, we use Twizzlers--you should pick your own objects.
 
 
@@ -100,10 +100,10 @@ These Twizzlers are connected to pads 6 and 10. When you run the code and touch 
 (circuitpython) pi@ixe00:~/Interactive-Lab-Hub/Lab 4 $ python cap_test.py 
 Twizzler 10 touched!
 Twizzler 6 touched!
-```
+``` -->
 
 ### Part B
-### More sensors
+<!-- ### More sensors
 
 #### Light/Proximity/Gesture sensor (APDS-9960)
 
@@ -173,24 +173,25 @@ Connect it to your pi with Qwiic connector and try running the example script to
 (circuitpython) pi@ixe00:~/Interactive-Lab-Hub/Lab 4 $ python qwiic_distance.py
 ```
 
-You can go to the [SparkFun GitHub Page](https://github.com/sparkfun/Qwiic_Proximity_Py) to learn more about the sensor and see other examples!
+You can go to the [SparkFun GitHub Page](https://github.com/sparkfun/Qwiic_Proximity_Py) to learn more about the sensor and see other examples! -->
 
 ### Part C
 ### Physical considerations for sensing
+<!-- 
+Usually, sensors need to be positioned in specific locations or orientations to make them useful for their application. Now that you've tried a bunch of the sensors, pick one that you would like to use, and an application where you use the output of that sensor for an interaction. For example, you can use a distance sensor to measure someone's height if you position it overhead and get them to stand under it. -->
 
-Usually, sensors need to be positioned in specific locations or orientations to make them useful for their application. Now that you've tried a bunch of the sensors, pick one that you would like to use, and an application where you use the output of that sensor for an interaction. For example, you can use a distance sensor to measure someone's height if you position it overhead and get them to stand under it.
+**\*\*\*Draw 5 sketches of different ways you might use your sensor, and how the larger device needs to be shaped in order to make the sensor useful.\*\*\***  
+![Capacitive Touch Sensor Sketches](5sketches.jpeg)  
 
-**\*\*\*Draw 5 sketches of different ways you might use your sensor, and how the larger device needs to be shaped in order to make the sensor useful.\*\*\***
-
-**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***
-
-**\*\*\*Pick one of these designs to prototype.\*\*\***
-
+**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***  
+These sketches raise the question of the reliability of the touch sensor, as ghost touches may ruin a game/application and cause unintended behavior. Additionally, it will be challenging to physically create our prototype with our materials due to limitiations such as cord length. We could create a smaller scale design as well. Depending on which option we choose, we would need to create some physical mockup using cardboard. 
+**\*\*\*Pick one of these designs to prototype.\*\*\***  
+We will prototype the mastermind game.
 
 ### Part D
 ### Physical considerations for displaying information and housing parts
 
-
+<!-- 
 Here is a Pi with a paper faceplate on it to turn it into a display interface:
 
 <img src="https://github.com/FAR-Lab/Developing-and-Designing-Interactive-Devices/blob/2020Fall/images/paper_if.png?raw=true"  width="250"/>
@@ -223,27 +224,34 @@ Here is an example:
 <img src="https://github.com/FAR-Lab/Developing-and-Designing-Interactive-Devices/blob/2020Fall/images/horoscope.png?raw=true"  width="250"/>
 
 Think about how you want to present the information about what your sensor is sensing! Design a paper display for your project that communicates the state of the Pi and a sensor. Ideally you should design it so that you can slide the Pi out to work on the circuit or programming, and then slide it back in and reattach a few wires to be back in operation.
- 
-**\*\*\*Sketch 5 designs for how you would physically position your display and any buttons or knobs needed to interact with it.\*\*\***
+  -->
+**\*\*\*Sketch 5 designs for how you would physically position your display and any buttons or knobs needed to interact with it.\*\*\***  
+![5 Screen Mounting Options](5mounts.jpeg)  
+**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***  
+Given the number of wires we have running from the Pi, it would be challenging to mount the screen inside the box like we showed in 4/5 sketches. Since we are using a thin cardboard box, without additional support, the box may not support the weight of the devices. Therefore, we need to physically prototype how we would mount the display on top of the box with minimal wires showing (so not to disturb the aesthetic of the game/device).
 
-**\*\*\*What are some things these sketches raise as questions? What do you need to physically prototype to understand how to anwer those questions?\*\*\***
+**\*\*\*Pick one of these display designs to integrate into your prototype.\*\*\***  
+We will mount the screen on top of the box.  
 
-**\*\*\*Pick one of these display designs to integrate into your prototype.\*\*\***
+**\*\*\*Explain the rationale for the design.\*\*\*** (e.g. Does it need to be a certain size or form or need to be able to be seen from a certain distance?)  
+We want the screen to be horizontal so more text can be shown at once. The display needs to face the player guessing the code so they can receive feedback on their guesses. Given the placement of the touch sensors inside of the box, we need to have the display outside the box itself, such as on top.
 
-**\*\*\*Explain the rationale for the design.\*\*\*** (e.g. Does it need to be a certain size or form or need to be able to be seen from a certain distance?)
 
 Build a cardboard prototype of your design.
 
-**\*\*\*Document your rough prototype.\*\*\***
+**\*\*\*Document your rough prototype.\*\*\***  
+![Image 1](prototype1.jpeg)  
+![Image 2](prototype2.jpeg)  
+![Image 3](prototype3.jpeg)  
 
 
 LAB PART 2
 
 ### Part 2
 
-Following exploration and reflection from Part 1, complete the "looks like," "works like" and "acts like" prototypes for your design, reiterated below.
+We have remade the classic [Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)) board game. We used a food theme, in which a player has to place food items in the correct locations in a fridge. The codesetter determines the correct locations before the game begins. We made the game into a 3D experience using capacitive touch sensors. Rather than simply guessing an ordering of the food items, a player must also determine the correct vertical location. The screen will be used to give the player feedback of how many food items or locations (or both) they guessed correctly.  
 
-### Part E (Optional)
+<!-- ### Part E (Optional)
 ### Servo Control with Joystick
 > **_NOTE:_**  Not in the kit yet.
 
@@ -293,10 +301,10 @@ The video is rendered locally on the pi. For wizarding interactions and prototyp
 
 The following resources are good starts on how to stream video: 
 * [OpenCV – Stream video to web browser/HTML page](https://pyimagesearch.com/2019/09/02/opencv-stream-video-to-web-browser-html-page/)
-* [Live video streaming over network with OpenCV and ImageZMQ](https://pyimagesearch.com/2019/04/15/live-video-streaming-over-network-with-opencv-and-imagezmq/)
+* [Live video streaming over network with OpenCV and ImageZMQ](https://pyimagesearch.com/2019/04/15/live-video-streaming-over-network-with-opencv-and-imagezmq/) -->
 ### Part G
 ### Record
-
+[Recording](https://drive.google.com/file/d/1Gne6Gwxfa9Ij6e318CtOxyy4Rzdhj72B/view?usp=sharing)  
 Document all the prototypes and iterations you have designed and worked on! Again, deliverables for this lab are writings, sketches, photos, and videos that show what your prototype:
 * "Looks like": shows how the device should look, feel, sit, weigh, etc.
 * "Works like": shows what the device can do
