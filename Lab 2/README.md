@@ -1,6 +1,8 @@
 # Interactive Prototyping: The Clock of Pi
 **NAMES OF COLLABORATORS:** Carlos Suberviola, Ivan Nikitovic, and Neelraj Patil  
 ChatGPT was used to help with elements of the clock, such as scrolling text and CSV parsing.  
+**NAMES OF COLLABORATORS:** Carlos Suberviola, Ivan Nikitovic, and Neelraj Patil  
+ChatGPT was used to help with elements of the clock, such as scrolling text and CSV parsing.  
 
 Does it feel like time is moving strangely during this semester?
 
@@ -10,6 +12,8 @@ It is worth spending a little time thinking about how you mark time, and what wo
 
 
 
+
+<!-- ## Prep
 <!-- ## Prep
 
 Lab Prep is extra long this week. Make sure to start this early for lab on Thursday.
@@ -48,6 +52,7 @@ Prior to the lab session on Thursday, taken inventory of the kit parts that you 
 [Follow these instructions](prep.md) to download and burn the image for your Raspberry Pi before lab Thursday.
 
  -->
+ -->
 
 
 ## Overview
@@ -68,12 +73,15 @@ F) [Make a short video of your modified barebones PiClock](#part-f)
 G) [Sketch and brainstorm further interactions and features you would like for your clock for Part 2.](#part-g)
 
 <!-- ## The Report
+<!-- ## The Report
 This readme.md page in your own repository should be edited to include the work you have done. You can delete everything but the headers and the sections between the \*\*\***stars**\*\*\*. Write the answers to the questions under the starred sentences. Include any material that explains what you did in this lab hub folder, and link it in the readme.
 
+Labs are due on Mondays. Make sure this page is linked to on your main class hub page. -->
 Labs are due on Mondays. Make sure this page is linked to on your main class hub page. -->
 
 ## Part A. 
 ### Connect to your Pi
+<!-- Just like you did in the lab prep, ssh on to your pi. Once you get there, create a Python environment (named venv) by typing the following commands.
 <!-- Just like you did in the lab prep, ssh on to your pi. Once you get there, create a Python environment (named venv) by typing the following commands.
 
 ```
@@ -94,10 +102,12 @@ git config --global user.email "yourNetID@cornell.edu"
 The support for password authentication of GitHub was removed on August 13, 2021. That is, in order to link and sync your own lab-hub repo with your Pi, you will have to set up a "Personal Access Tokens" to act as the password for your GitHub account on your Pi when using git command, such as `git clone` and `git push`.
 
 Following the steps listed [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) from GitHub to set up a token. Depends on your preference, you can set up and select the scopes, or permissions, you would like to grant the token. This token will act as your GitHub password later when you use the terminal on your Pi to sync files with your lab-hub repo. -->
+Following the steps listed [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) from GitHub to set up a token. Depends on your preference, you can set up and select the scopes, or permissions, you would like to grant the token. This token will act as your GitHub password later when you use the terminal on your Pi to sync files with your lab-hub repo. -->
 
 
 ## Part B. 
 ### Try out the Command Line Clock
+<!-- Clone your own lab-hub repo for this assignment to your Pi and change the directory to Lab 2 folder (remember to replace the following command line with your own GitHub ID):
 <!-- Clone your own lab-hub repo for this assignment to your Pi and change the directory to Lab 2 folder (remember to replace the following command line with your own GitHub ID):
 
 ```
@@ -117,10 +127,12 @@ Install the packages from the requirements.txt and run the example script `cli_c
 
 The terminal should show the time, you can press `ctrl-c` to exit the script.
 If you are unfamiliar with the Python code in `cli_clock.py`, have a look at [this Python refresher](https://hackernoon.com/intermediate-python-refresher-tutorial-project-ideas-and-tips-i28s320p). If you are still concerned, please reach out to the teaching staff! -->
+If you are unfamiliar with the Python code in `cli_clock.py`, have a look at [this Python refresher](https://hackernoon.com/intermediate-python-refresher-tutorial-project-ideas-and-tips-i28s320p). If you are still concerned, please reach out to the teaching staff! -->
 
 
 ## Part C. 
 ### Set up your RGB Display
+<!-- We have asked you to equip the [Adafruit MiniPiTFT](https://www.adafruit.com/product/4393) on your Pi in the Lab 2 prep already. Here, we will introduce you to the MiniPiTFT and Python scripts on the Pi with more details.
 <!-- We have asked you to equip the [Adafruit MiniPiTFT](https://www.adafruit.com/product/4393) on your Pi in the Lab 2 prep already. Here, we will introduce you to the MiniPiTFT and Python scripts on the Pi with more details.
 
 <img src="https://cdn-learn.adafruit.com/assets/assets/000/082/842/large1024/adafruit_products_4393_iso_ORIG_2019_10.jpg" height="200" />
@@ -164,11 +176,13 @@ You can look in `screen_boot_script.py` and `stats.py` for how to display text o
 #### Displaying an image
 
 You can look in `image.py` for an example of how to display an image on the screen. Can you make it switch to another image when you push one of the buttons? -->
+You can look in `image.py` for an example of how to display an image on the screen. Can you make it switch to another image when you push one of the buttons? -->
 
 
 
 ## Part D. 
 ### Set up the Display Clock Demo
+<!-- Work on `screen_clock.py`, try to show the time by filling in the while loop (at the bottom of the script where we noted "TODO" for you). You can use the code in `cli_clock.py` and `stats.py` to figure this out.
 <!-- Work on `screen_clock.py`, try to show the time by filling in the while loop (at the bottom of the script where we noted "TODO" for you). You can use the code in `cli_clock.py` and `stats.py` to figure this out.
 
 ### How to Edit Scripts on Pi
@@ -191,9 +205,12 @@ Option 3. A nowadays often preferred method is to use Microsoft [VS code to remo
 
 Pro Tip: Using tools like [code-server](https://coder.com/docs/code-server/latest) you can even setup a VS Code coding environment hosted on your raspberry pi and code through a web browser on your tablet or smartphone!  -->
 [Demo](https://drive.google.com/file/d/1F8HONr53WcbWFwhGAOe0JsQoemGO4oL-/view?usp=drivesdk)
+Pro Tip: Using tools like [code-server](https://coder.com/docs/code-server/latest) you can even setup a VS Code coding environment hosted on your raspberry pi and code through a web browser on your tablet or smartphone!  -->
+[Demo](https://drive.google.com/file/d/1F8HONr53WcbWFwhGAOe0JsQoemGO4oL-/view?usp=drivesdk)
 
 ## Part E.
 ### Modify the barebones clock to make it your own
+<!-- 
 <!-- 
 Does time have to be linear?  How do you measure a year? [In daylights? In midnights? In cups of coffee?](https://www.youtube.com/watch?v=wsj15wPpjLY)
 
@@ -217,6 +234,7 @@ Please sketch/diagram your clock idea. (Try using a [Verplank digram](http://www
 (venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 2 $ git push
 ```
 
+After that, Git will ask you to login to your GitHub account to push the updates online, you will be asked to provide your GitHub user name and password. Remember to use the "Personal Access Tokens" you set up in Part A as the password instead of your account one! Go on your GitHub repo with your laptop, you should be able to see the updated files from your Pi! -->
 After that, Git will ask you to login to your GitHub account to push the updates online, you will be asked to provide your GitHub user name and password. Remember to use the "Personal Access Tokens" you set up in Part A as the password instead of your account one! Go on your GitHub repo with your laptop, you should be able to see the updated files from your Pi! -->
 
 

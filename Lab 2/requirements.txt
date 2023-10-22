@@ -83,4 +83,10 @@ typing-extensions==4.7.1
     #   adafruit-circuitpython-typing
 webcolors==1.13
     # via -r requirements.in
+pygame==2.5.1
+adafruit-circuitpython-lsm6ds
+
+Adafruit-Blinka
+adafruit-circuitpython-register
+adafruit-circuitpython-busdevice
 
