@@ -4,6 +4,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
 from email import encoders 
+from gtts import gTTS
+from pydub import AudioSegment
+from pydub.playback import play
    
 image_to_description = {
     "mewithfriends.jpg": "Hanging out with friends today! Tagged: @johnsmith and @janedoe on 10/20/2019 in San Francisco, CA",
@@ -47,6 +50,29 @@ mood_to_images = {
     ],
 }
 
+mood_messages = {
+    "happy": [
+        "Keep riding that wave of joy—it's great to see you so upbeat!",
+        "Your happiness is contagious! Keep spreading that positive energy around you!",
+        "It's wonderful to see you so happy! Keep enjoying every moment to the fullest!",
+    ],
+    "sad": [
+        "Even on a cloudy day, the sun is still shining. Hang in there, and you'll see it soon!",
+        "It's okay to feel down—remember, every storm passes and leaves a clear sky.",
+        "Sending you a little box of sunshine to brighten your day as you always brighten mine!",
+    ],
+    "angry": [
+        "Take a deep breath and feel the peace flowing in. You've got this!",
+        "It's absolutely okay to feel angry, but remember to give yourself the gift of calmness soon.",
+        "Imagine your anger as a balloon. Now let it go and watch it disappear into the sky.",
+    ],
+    "stressed": [
+        "Remember to take things one step at a time—you're doing way better than you think!",
+        "Deep breaths. You're stronger than your stress. You can conquer anything!",
+        "Stress is just the weight of things that matter. Let's find a way to lighten your load."
+    ]
+}
+
 
 
 def send_email(fromaddr, toaddr, body, filename, password):   
@@ -72,6 +98,24 @@ def select_image(mood):
     images = mood_to_images[mood]
     return random.choice(images)
 
+def text_to_speech(text, output_file, lang='en'):
+    tts = gTTS(text=text, lang=lang)
+    tts.save(output_file)
+    return output_file
+
+def play_audio(file_path):
+    audio = AudioSegment.from_file(file_path)
+    play(audio)
+
+def speak_message(mood):
+    # Select a random message for the given mood
+    message = random.choice(mood_messages[mood])
+    # Define the output audio file
+    output_file = 'output_message.mp3'
+    # Convert the message to speech
+    text_to_speech(message, output_file)
+    # Play the audio message
+    play_audio(output_file)
 
 #For manual testing purposes 
 #Mood_in should be the input from the model
@@ -83,3 +127,4 @@ file_name_from_input = select_image(mood_in)
 
 # send_email("iddhomies@gmail.com", "zjpakin@gmail.com", "MoodHelper has tuned into your " + mood_in + " mood. Here's a picture to brighten your day!", file_name_from_input, open('gmail_password.key', 'r').read().strip())
 send_email("iddhomies@gmail.com", "zpakin@hpeprint.com", "MoodHelper has tuned into your " + mood_in + " mood. Here's a picture to brighten your day!", file_name_from_input, open('gmail_password.key', 'r').read().strip())
+speak_message(mood_in)
