@@ -43,7 +43,7 @@ mood_to_images = {
         "workout.jpg",        # Physical activity is often sought to channel and alleviate anger.
         "hiking_trails.jpg",  # Engaging with nature can be calming when angry.
     ],
-    "stressed": [
+    "fear": [
         "beach_sunset.jpg",   # Natural scenery, like a beach at sunset, can be calming for stressed individuals.
         "home_cooked_meal.jpg", # Comfort food, or the act of cooking, can be stress-relieving.
         "snowman_winter.jpg", # Creative activities like making a snowman can distract and reduce stress.
@@ -66,7 +66,7 @@ mood_messages = {
         "It's absolutely okay to feel angry, but remember to give yourself the gift of calmness soon.",
         "Imagine your anger as a balloon. Now let it go and watch it disappear into the sky.",
     ],
-    "stressed": [
+    "fear": [
         "Remember to take things one step at a time—you're doing way better than you think!",
         "Deep breaths. You're stronger than your stress. You can conquer anything!",
         "Stress is just the weight of things that matter. Let's find a way to lighten your load."
@@ -119,7 +119,7 @@ def speak_message(mood):
 
 #For manual testing purposes 
 #Mood_in should be the input from the model
-mood_in = input("How are you feeling? Choose from 'happy', 'sad', 'angry', 'stressed': ").lower().strip()
+mood_in = input("How are you feeling? Choose from 'happy', 'sad', 'angry', 'fear': ").lower().strip()
 
 
 file_name_from_input = select_image(mood_in)
