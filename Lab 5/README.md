@@ -1,15 +1,70 @@
 # Observant Systems
 
-**NAMES OF COLLABORATORS HERE**
+**NAMES OF COLLABORATORS HERE**: Carlos Suberviola, Neelraj Patil, Ivan Nikitovic
+
+ChatGPT was used to choose random milestone images and assign them to an emotion. It was also used for uplifting messages. 
+```
+mood_to_images = {
+    "happy": [
+        "mewithfriends.jpg",  # Social gatherings often boost happiness.
+        "puppy.jpg",          # Cute animals are a common source of joy.
+        "graduation.jpg",     # Celebrating personal achievements can make someone happy.
+        "birthday_party.jpg", # Birthday celebrations are typically joyous occasions.
+        "concert_night.jpg",  # Music events are often associated with happiness and excitement.
+        "baby_steps.jpg",     # Family milestones like a baby's first steps bring happiness.
+    ],
+    "sad": [
+        # Typically, one does not seek to view images to enhance sadness, but certain images might offer comfort during sadness.
+        "puppy.jpg",          # Pets can provide comfort during sad times.
+        "first_day_school.jpg", # Parents might feel a bittersweet sadness seeing children grow up.
+        "snowman_winter.jpg", # Seasonal activities might remind someone of happier times.
+    ],
+    "angry": [
+        "workout.jpg",        # Physical activity is often sought to channel and alleviate anger.
+        "hiking_trails.jpg",  # Engaging with nature can be calming when angry.
+    ],
+    "stressed": [
+        "beach_sunset.jpg",   # Natural scenery, like a beach at sunset, can be calming for stressed individuals.
+        "home_cooked_meal.jpg", # Comfort food, or the act of cooking, can be stress-relieving.
+        "snowman_winter.jpg", # Creative activities like making a snowman can distract and reduce stress.
+    ],
+}
+```
+```
+mood_messages = {
+    "happy": [
+        "Keep riding that wave of joy—it's great to see you so upbeat!",
+        "Your happiness is contagious! Keep spreading that positive energy around you!",
+        "It's wonderful to see you so happy! Keep enjoying every moment to the fullest!",
+    ],
+    "sad": [
+        "Even on a cloudy day, the sun is still shining. Hang in there, and you'll see it soon!",
+        "It's okay to feel down—remember, every storm passes and leaves a clear sky.",
+        "Sending you a little box of sunshine to brighten your day as you always brighten mine!",
+    ],
+    "angry": [
+        "Take a deep breath and feel the peace flowing in. You've got this!",
+        "It's absolutely okay to feel angry, but remember to give yourself the gift of calmness soon.",
+        "Imagine your anger as a balloon. Now let it go and watch it disappear into the sky.",
+    ],
+    "stressed": [
+        "Remember to take things one step at a time—you're doing way better than you think!",
+        "Deep breaths. You're stronger than your stress. You can conquer anything!",
+        "Stress is just the weight of things that matter. Let's find a way to lighten your load."
+    ]
+}
+
+```
 
 
+<!-- 
 For lab this week, we focus on creating interactive systems that can detect and respond to events or stimuli in the environment of the Pi, like the Boat Detector we mentioned in lecture. 
 Your **observant device** could, for example, count items, find objects, recognize an event or continuously monitor a room.
 
-This lab will help you think through the design of observant systems, particularly corner cases that the algorithms need to be aware of.
+This lab will help you think through the design of observant systems, particularly corner cases that the algorithms need to be aware of. -->
 
 ## Prep
-
+<!-- 
 1.  Install VNC on your laptop if you have not yet done so. This lab will actually require you to run script on your Pi through VNC so that you can see the video stream. Please refer to the [prep for Lab 2](https://github.com/FAR-Lab/Interactive-Lab-Hub/blob/-/Lab%202/prep.md#using-vnc-to-see-your-pi-desktop).
 2.  Install the dependencies as described in the [prep document](prep.md). 
 3.  Read about [OpenCV](https://opencv.org/about/),[Pytorch](https://pytorch.org/), [MediaPipe](https://mediapipe.dev/), and [TeachableMachines](https://teachablemachine.withgoogle.com/).
@@ -23,10 +78,10 @@ This lab will help you think through the design of observant systems, particular
 ### Deliverables for this lab are:
 1. Show pictures, videos of the "sense-making" algorithms you tried.
 1. Show a video of how you embed one of these algorithms into your observant system.
-1. Test, characterize your interactive device. Show faults in the detection and how the system handled it.
+1. Test, characterize your interactive device. Show faults in the detection and how the system handled it. -->
 
 ## Overview
-Building upon the paper-airplane metaphor (we're understanding the material of machine learning for design), here are the four sections of the lab activity:
+<!-- Building upon the paper-airplane metaphor (we're understanding the material of machine learning for design), here are the four sections of the lab activity:
 
 A) [Play](#part-a)
 
@@ -34,10 +89,10 @@ B) [Fold](#part-b)
 
 C) [Flight test](#part-c)
 
-D) [Reflect](#part-d)
+D) [Reflect](#part-d) -->
 
 ---
-
+<!-- 
 ### Part A
 ### Play with different sense-making algorithms.
 
@@ -127,7 +182,7 @@ In an earlier version of this class students experimented with observing through
 Teachable machines provides an audio classifier too. If you want to use audio classification this is our suggested method. 
 
 In an earlier version of this class students experimented with foundational computer vision techniques such as face and flow detection. Techniques like these can be sufficient, more performant, and allow non discrete classification. Find the material here:
-[CV_optional/cv.md](CV_optional/cv.md).
+[CV_optional/cv.md](CV_optional/cv.md). -->
 
 ### Part B
 ### Construct a simple interaction.
@@ -137,17 +192,22 @@ In an earlier version of this class students experimented with foundational comp
 * Try out different interaction outputs and inputs.
 
 
-**\*\*\*Describe and detail the interaction, as well as your experimentation here.\*\*\***
+**\*\*\*Describe and detail the interaction, as well as your experimentation here.\*\*\***  
+We wanted to try to construct an interaction with facial expressions, such that the Raspberry Pi would predict an emotion based off of a user's face. We tried a few libraries to accomplish this task of recognition, such as Teachable Machines (which didn't work well) and DeepFace (worked very well). We tried basic emotions, like happy, sad, angry, and stressed (coded as fear). DeepFace also supported a neutral facial expression and a few others as well. We each tried to use the model and had similar positive results. We also tried to confuse the model with having two faces present, but it correctly detected both faces. We did not implement anything for dealing with more than one face, but it appears that the model would support it. Based on this result, we wanted to create a tool to improve/maintain one's mood through smart devices in their home. We created a handler for four selected emotions (happy, sad, angry, and fearful) that would attempt to cheer the user up or maintain their happiness. Our application pulls from a pseudo-Instagram library of images (Ideally we would actually link to a user's instagram account) and, when a certain emotion is detected, that picture is printed along with its caption, tagged friends, and date. For example, a sad user could have a photo of their dog automatically chosen and printed, as pets often cheer people up. Also, our program would use a text to speech engine to say an uplifting phrase in an attempt to cheer the user up. 
 
 ### Part C
 ### Test the interaction prototype
 
 Now flight test your interactive prototype and **note down your observations**:
-For example:
+
 1. When does it what it is supposed to do?
+When a user's emotion is correctly identified and an image/spoken message are chosen such that they cheer the user up or maintain their feelings of happiness. For example, I acted sad and was printed a picture of my dog and told that it's okay to feel sad.  
 1. When does it fail?
+When a user's emotion is not correctly identified or the image/spoken message that are chosen do not cheer the user up or maintain their happiness. For example, if I act angry and am printed a picture of a friend with whom I am in an argument, that would perpetuate my anger. 
 1. When it fails, why does it fail?
+The failure could be caused by the AI tool misclassifying my facial expression or by misassociating pictures/phrases with improving a certain mood. 
 1. Based on the behavior you have seen, what other scenarios could cause problems?
+The printing process can sometimes take multiple minutes to execute, meaning there is an awkward delay between showing signs of an emotion and actually receiving the printed response. Alternatively, the user may not want to be consoled or watched when they are experiencing emotional distress. 
 
 **\*\*\*Think about someone using the system. Describe how you think this will work.\*\*\***
 1. Are they aware of the uncertainties in the system?
