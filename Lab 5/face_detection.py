@@ -4,6 +4,8 @@ import cv2
 from deepface import DeepFace
 import time
 
+from mood_helper import select_image, send_email, speak_message
+
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -45,8 +47,10 @@ while True:
 
     if diff >= 3:
         captured = True
-        # PRINT current_emotion
-    
+        file_name = select_image(current_emotion)
+        send_email("iddhomies@gmail.com", "zpakin@hpeprint.com", "MoodHelper has tuned into your " + current_emotion + " mood. Here's a picture to brighten your day!", file_name, open('gmail_password.key', 'r').read().strip())
+        speak_message(current_emotion)
+
     cv2.putText(img, f'TIME: {int(diff)}', (40, 50), cv2.FONT_HERSHEY_COMPLEX,
                 1, (255, 0, 0), 3)
     cv2.putText(img, current_emotion, (40, 80), cv2.FONT_HERSHEY_SIMPLEX, 
