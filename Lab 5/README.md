@@ -129,11 +129,11 @@ When MoodHelper breaks, it may provide incorrect content in response to the user
 
 * What are other properties/behaviors of MoodHelper?
 
-MoodHelper has the property of adaptability, as it can learn from user feedback to improve emotion recognition and response accuracy over time. It exhibits the behavior of personalization by tailoring responses based on a user's historical interactions and preferences.
+MoodHelper has the property of adaptability, as it could be improved to learn from user feedback to improve emotion recognition and response accuracy over time (currently wizarded). It could exhibit the behavior of personalization by tailoring responses based on a user's historical interactions and preferences.
 
 * How does MoodHelper feel?
 
-MoodHelper, being an AI-based system, doesn't have feelings in the human sense. However, it is designed to enhance and manage the emotional experience of users, aiming to provide comfort or upliftment when users are in need.
+MoodHelper, being an AI-based system, doesn't have feelings in the human sense, so it uses its camera to read facial expressions. It is designed to enhance and manage the emotional experience of users, aiming to provide comfort or upliftment when users are in need.
 
 
 **\*\*\*Include a short video demonstrating the answers to these questions.\*\*\***
