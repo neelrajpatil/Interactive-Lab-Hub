@@ -143,4 +143,5 @@ MoodHelper, being an AI-based system, doesn't have feelings in the human sense, 
 
 Following exploration and reflection from Part 1, finish building your interactive system, and demonstrate it in use with a video.
 
-**\*\*\*Include a short video demonstrating the finished result.\*\*\***
+**\*\*\*Include a short video demonstrating the finished result.\*\*\***  
+[Final Video](https://drive.google.com/file/d/1LOLfASDO605UKt-mn7wMgnhkifOxGk4O/view?usp=sharing)
