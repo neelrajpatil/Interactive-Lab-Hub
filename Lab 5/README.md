@@ -137,6 +137,7 @@ MoodHelper, being an AI-based system, doesn't have feelings in the human sense, 
 
 
 **\*\*\*Include a short video demonstrating the answers to these questions.\*\*\***
+[Video Answering Questions with Mini Demo](https://drive.google.com/file/d/13YtWfV8O8oCOHeRp7-EZAw8lv33heJ5u/view?usp=sharing)
 
 ### Part 2.
 
