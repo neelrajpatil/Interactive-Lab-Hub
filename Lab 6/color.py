@@ -66,7 +66,8 @@ def on_message(cleint, userdata, msg):
     # if a message is recieved on the colors topic, parse it and set the color
     if msg.topic == topic:
         colors = list(map(int, msg.payload.decode('UTF-8').split(',')))
-        draw.rectangle((0, 0, width, height*0.5), fill=color)
+        print(colors)
+        draw.rectangle((0, 0, width, height), fill=tuple(colors))
         disp.image(image)
 
 client = mqtt.Client(str(uuid.uuid1()))
@@ -105,7 +106,7 @@ while True:
     # if we press the button, send msg to cahnge everyones color
     if not buttonA.value:
         client.publish(topic, f"{r},{g},{b}")
-    draw.rectangle((0, height*0.5, width, height), fill=color[:3])
-    disp.image(image)
+    # draw.rectangle((0, height*0.5, width, height), fill=color[:3])
+    # disp.image(image)
     time.sleep(.01)
     

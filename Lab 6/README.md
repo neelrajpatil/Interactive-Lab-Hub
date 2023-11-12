@@ -125,10 +125,14 @@ Plug in the capacitive sensor board with the Qwiic connector. Use the alligator 
  ...
  ```
 
-**\*\*\*Include a picture of your setup here: what did you see on MQTT Explorer?\*\*\***
+**\*\*\*Include a picture of your setup here: what did you see on MQTT Explorer?\*\*\***  
+My team still has my alligator clips  
+![Setup](setup.jpg)  
+![MQTT Explorer](twizzler.png)
 
-**\*\*\*Pick another part in your kit and try to implement the data streaming with it.\*\*\***
-
+**\*\*\*Pick another part in your kit and try to implement the data streaming with it.\*\*\***  
+I implemented data streaming with the distance sensor. [Here](distance_sender.py)  
+![MQTT Distance Sensor](distance.png)  
 
 ### Part D
 ### The One True ColorNet
@@ -156,8 +160,8 @@ By running the script, wou will find the two squares on the display. Half is sho
 
 (A message from the previous TA, Ilan: I was not super careful with handling the loop so you may need to press more than once if the timing isn't quite right. Also, I haven't load-tested it so things might just immediately break when everyone pushes the button at once.)
 
-**\*\*\*Can you set up the script that can read the color anyone else publish and display it on your screen?\*\*\***
-
+**\*\*\*Can you set up the script that can read the color anyone else publish and display it on your screen?\*\*\***  
+[See here](color.py)  
 
 ### Part E
 ### Make it your own
