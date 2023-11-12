@@ -94,7 +94,17 @@ Once connected, you should be able to see all the messages under the IDD topic. 
 <img width="890" alt="Screen Shot 2022-10-30 at 10 47 52 AM" src="https://user-images.githubusercontent.com/24699361/198885135-a1d38d17-a78f-4bb2-91c7-17d014c3a0bd.png">
 
 
-**\*\*\*Consider how you might use this messaging system on interactive devices, and draw/write down 5 ideas here.\*\*\***
+**\*\*\*Consider how you might use this messaging system on interactive devices, and draw/write down 5 ideas here.\*\*\***  
+
+1. Safety/emergency alerts being quickly pushed out to all devices in a community/campus and popping up on the screen conspicuously.  
+
+2. Local network communication in case of internet loss/privacy concerns since server can be hosted locally and used without internet connection. Messaging service.
+
+3. Redundant data backup system - multiple backup storage devices save data that is broadcasted from host machine to ensure data loss is prevented. 
+
+4. Weather alerts - alerts all device users with weather updates, configurable to certain channels (like daily updates, only when it is going to rain/snow, only severe weather alerts, etc.)  
+
+5. Text based games, such as MadLibs, when two people are apart and want to play a game together. Protocol can be used as basis for developers to create games for two or more people to play. 
 
 ### Part C
 ### Streaming a Sensor
