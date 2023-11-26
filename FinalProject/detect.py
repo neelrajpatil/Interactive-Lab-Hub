@@ -16,6 +16,7 @@
 import argparse
 import sys
 import time
+import pyautogui
 
 import cv2
 import mediapipe as mp
@@ -38,26 +39,29 @@ DETECTION_RESULT = None
 prev_left_wrist_y = None
 prev_right_wrist_y = None
 
+
+def simulate_key_press(key):
+    pyautogui.keyDown(key)
+    time.sleep(1)
+    pyautogui.keyUp(key)
+    
 def is_walking_detected(left_wrist, right_wrist):
     global prev_left_wrist_y, prev_right_wrist_y
     walking_threshold = 0.05  # Define a threshold for movement
 
-    # Check if previous positions are recorded
     if prev_left_wrist_y is not None and prev_right_wrist_y is not None:
         left_movement = abs(left_wrist.y - prev_left_wrist_y)
         right_movement = abs(right_wrist.y - prev_right_wrist_y)
 
-        # Update the previous positions
         prev_left_wrist_y = left_wrist.y
         prev_right_wrist_y = right_wrist.y
 
-        # Check if the movement is above the threshold
         if left_movement > walking_threshold and right_movement > walking_threshold:
+            simulate_key_press('w')  # Simulate pressing 'w'
             return "Walking detected"
         else:
             return "Walking not detected"
     else:
-        # Update the previous positions for the next frame
         prev_left_wrist_y = left_wrist.y
         prev_right_wrist_y = right_wrist.y
         return "Insufficient data for walking detection"
@@ -189,7 +193,7 @@ def run(model: str, num_poses: int,
                                                 visualized_mask, overlay_alpha,
                                                 0)
 
-        cv2.imshow('pose_landmarker', current_frame)
+        # cv2.imshow('pose_landmarker', current_frame)
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
