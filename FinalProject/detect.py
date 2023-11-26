@@ -34,6 +34,33 @@ COUNTER, FPS = 0, 0
 START_TIME = time.time()
 DETECTION_RESULT = None
 
+# Global variables to track the previous positions
+prev_left_wrist_y = None
+prev_right_wrist_y = None
+
+def is_walking_detected(left_wrist, right_wrist):
+    global prev_left_wrist_y, prev_right_wrist_y
+    walking_threshold = 0.05  # Define a threshold for movement
+
+    # Check if previous positions are recorded
+    if prev_left_wrist_y is not None and prev_right_wrist_y is not None:
+        left_movement = abs(left_wrist.y - prev_left_wrist_y)
+        right_movement = abs(right_wrist.y - prev_right_wrist_y)
+
+        # Update the previous positions
+        prev_left_wrist_y = left_wrist.y
+        prev_right_wrist_y = right_wrist.y
+
+        # Check if the movement is above the threshold
+        if left_movement > walking_threshold and right_movement > walking_threshold:
+            return "Walking detected"
+        else:
+            return "Walking not detected"
+    else:
+        # Update the previous positions for the next frame
+        prev_left_wrist_y = left_wrist.y
+        prev_right_wrist_y = right_wrist.y
+        return "Insufficient data for walking detection"
 
 def run(model: str, num_poses: int,
         min_pose_detection_confidence: float,
@@ -73,6 +100,7 @@ def run(model: str, num_poses: int,
     overlay_alpha = 0.5
     mask_color = (100, 100, 0)  # cyan
 
+
     def save_result(result: vision.PoseLandmarkerResult,
                     unused_output_image: mp.Image, timestamp_ms: int):
         global FPS, COUNTER, START_TIME, DETECTION_RESULT
@@ -81,6 +109,17 @@ def run(model: str, num_poses: int,
         if COUNTER % fps_avg_frame_count == 0:
             FPS = fps_avg_frame_count / (time.time() - START_TIME)
             START_TIME = time.time()
+
+            if result and result.pose_landmarks and len(result.pose_landmarks) > 0 and len(result.pose_landmarks[0]) >= mp_pose.PoseLandmark.RIGHT_WRIST.value + 1:
+                first_pose_landmarks = result.pose_landmarks[0]
+
+                left_wrist = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value]
+                right_wrist = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value]
+
+                walking_status = is_walking_detected(left_wrist, right_wrist)
+                print(walking_status)
+            else:
+                print("No pose detected.")
 
         DETECTION_RESULT = result
         COUNTER += 1
