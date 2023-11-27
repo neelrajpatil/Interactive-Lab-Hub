@@ -42,12 +42,13 @@ prev_right_wrist_y = None
 
 def simulate_key_press(key):
     pyautogui.keyDown(key)
-    time.sleep(1)
+    time.sleep(0.75)
     pyautogui.keyUp(key)
     
 def is_walking_detected(left_wrist, right_wrist):
     global prev_left_wrist_y, prev_right_wrist_y
-    walking_threshold = 0.05  # Define a threshold for movement
+    walking_threshold = 0.02  # Adjust this threshold as needed
+    coordination_tolerance = 0.02  # Tolerance for coordination check
 
     if prev_left_wrist_y is not None and prev_right_wrist_y is not None:
         left_movement = abs(left_wrist.y - prev_left_wrist_y)
@@ -57,14 +58,20 @@ def is_walking_detected(left_wrist, right_wrist):
         prev_right_wrist_y = right_wrist.y
 
         if left_movement > walking_threshold and right_movement > walking_threshold:
-            simulate_key_press('w')  # Simulate pressing 'w'
-            return "Walking detected"
+            # Check for coordinated movement with some tolerance
+            movement_diff = left_wrist.y - right_wrist.y
+            if abs(movement_diff) > coordination_tolerance:
+                simulate_key_press('w')
+                return "Walking detected"
+            else:
+                return "Walking not detected (uncoordinated movement)"
         else:
             return "Walking not detected"
     else:
         prev_left_wrist_y = left_wrist.y
         prev_right_wrist_y = right_wrist.y
         return "Insufficient data for walking detection"
+
 
 def run(model: str, num_poses: int,
         min_pose_detection_confidence: float,
