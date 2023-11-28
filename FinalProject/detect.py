@@ -52,10 +52,14 @@ def press_key(key):
 def release_key(key):
     pyautogui.keyUp(key)
 
-def are_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
-    # Check if the wrists are above the ears
-    return left_wrist.y < left_ear.y and right_wrist.y < right_ear.y
 
+def is_left_hand_raised(left_wrist, left_ear):
+    # Check if the left wrist is above the left ear
+    return left_wrist.y < left_ear.y
+
+def are_both_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
+    # Check if both wrists are above the ears
+    return left_wrist.y < left_ear.y and right_wrist.y < right_ear.y
     
 def is_walking_detected(left_wrist, right_wrist):
     global prev_left_wrist_y, prev_right_wrist_y
@@ -124,8 +128,7 @@ def run(model: str, num_poses: int,
     mask_color = (100, 100, 0)  # cyan
 
 
-    def save_result(result: vision.PoseLandmarkerResult,
-                    unused_output_image: mp.Image, timestamp_ms: int):
+    def save_result(result: vision.PoseLandmarkerResult, unused_output_image: mp.Image, timestamp_ms: int):
         global FPS, COUNTER, START_TIME, DETECTION_RESULT
 
         # Calculate the FPS
@@ -141,18 +144,26 @@ def run(model: str, num_poses: int,
                 left_ear = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_EAR.value]
                 right_ear = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_EAR.value]
 
-                if are_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
-                    print('jump detected!')
-                    pyautogui.press('space')
-                walking_status = is_walking_detected(left_wrist, right_wrist)
-                print(walking_status)
+                if are_both_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
+                    print('Both arms raised! Pressing space.')
+                    simulate_key_press('space')
+                elif is_left_hand_raised(left_wrist, left_ear):
+                    print('Left hand raised! Pressing D.')
+                    #pyautogui press space twice
+                    pyautogui.keyDown('space')
+                    pyautogui.keyUp('space')
+                    pyautogui.keyDown('space')
+                    pyautogui.keyUp('space')
+                else:
+                    # walking_status = is_walking_detected(left_wrist, right_wrist)
+                    # print(walking_status)
+                    print('')
             else:
                 release_key('w')
                 print("No pose detected.")
 
         DETECTION_RESULT = result
         COUNTER += 1
-
     # Initialize the pose landmarker model
     base_options = python.BaseOptions(model_asset_path=model)
     options = vision.PoseLandmarkerOptions(
