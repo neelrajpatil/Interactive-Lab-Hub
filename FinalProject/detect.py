@@ -63,7 +63,7 @@ def are_both_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
     
 def is_walking_detected(left_wrist, right_wrist):
     global prev_left_wrist_y, prev_right_wrist_y
-    walking_threshold = 0.01  # Adjust this threshold as needed
+    walking_threshold = 0.04  # Adjust this threshold as needed
     coordination_tolerance = 0  # Tolerance for coordination check
 
     if prev_left_wrist_y is not None and prev_right_wrist_y is not None:
@@ -157,7 +157,7 @@ def run(model: str, num_poses: int,
                 else:
                     walking_status = is_walking_detected(left_wrist, right_wrist)
                     print(walking_status)
-                    print('')
+                    print('Walking detected')
             else:
                 release_key('w')
                 print("No pose detected.")
@@ -229,7 +229,7 @@ def run(model: str, num_poses: int,
                                                 visualized_mask, overlay_alpha,
                                                 0)
 
-        # cv2.imshow('pose_landmarker', current_frame)
+        cv2.imshow('pose_landmarker', current_frame)
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
@@ -303,4 +303,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main() 
