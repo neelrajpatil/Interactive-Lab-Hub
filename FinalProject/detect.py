@@ -40,15 +40,22 @@ prev_left_wrist_y = None
 prev_right_wrist_y = None
 
 
-def simulate_key_press(key):
+def simulate_key_press(key): #might no longer be needed
     pyautogui.keyDown(key)
     time.sleep(0.75)
     pyautogui.keyUp(key)
     
+def press_key(key):
+    pyautogui.keyDown(key)
+
+def release_key(key):
+    pyautogui.keyUp(key)
+
+    
 def is_walking_detected(left_wrist, right_wrist):
     global prev_left_wrist_y, prev_right_wrist_y
-    walking_threshold = 0.02  # Adjust this threshold as needed
-    coordination_tolerance = 0.02  # Tolerance for coordination check
+    walking_threshold = 0.01  # Adjust this threshold as needed
+    coordination_tolerance = 0  # Tolerance for coordination check
 
     if prev_left_wrist_y is not None and prev_right_wrist_y is not None:
         left_movement = abs(left_wrist.y - prev_left_wrist_y)
@@ -58,20 +65,20 @@ def is_walking_detected(left_wrist, right_wrist):
         prev_right_wrist_y = right_wrist.y
 
         if left_movement > walking_threshold and right_movement > walking_threshold:
-            # Check for coordinated movement with some tolerance
             movement_diff = left_wrist.y - right_wrist.y
             if abs(movement_diff) > coordination_tolerance:
-                simulate_key_press('w')
+                press_key('w')
                 return "Walking detected"
             else:
+                release_key('w')
                 return "Walking not detected (uncoordinated movement)"
         else:
+            release_key('w')
             return "Walking not detected"
     else:
         prev_left_wrist_y = left_wrist.y
         prev_right_wrist_y = right_wrist.y
         return "Insufficient data for walking detection"
-
 
 def run(model: str, num_poses: int,
         min_pose_detection_confidence: float,
@@ -130,6 +137,7 @@ def run(model: str, num_poses: int,
                 walking_status = is_walking_detected(left_wrist, right_wrist)
                 print(walking_status)
             else:
+                release_key('w')
                 print("No pose detected.")
 
         DETECTION_RESULT = result
@@ -204,6 +212,7 @@ def run(model: str, num_poses: int,
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
+            release_key('w')
             break
 
     detector.close()
