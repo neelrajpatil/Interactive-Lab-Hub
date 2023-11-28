@@ -40,6 +40,7 @@ prev_left_wrist_y = None
 prev_right_wrist_y = None
 
 
+
 def simulate_key_press(key): #might no longer be needed
     pyautogui.keyDown(key)
     time.sleep(0.75)
@@ -50,6 +51,10 @@ def press_key(key):
 
 def release_key(key):
     pyautogui.keyUp(key)
+
+def are_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
+    # Check if the wrists are above the ears
+    return left_wrist.y < left_ear.y and right_wrist.y < right_ear.y
 
     
 def is_walking_detected(left_wrist, right_wrist):
@@ -133,7 +138,12 @@ def run(model: str, num_poses: int,
 
                 left_wrist = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value]
                 right_wrist = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value]
+                left_ear = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_EAR.value]
+                right_ear = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_EAR.value]
 
+                if are_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
+                    print('jump detected!')
+                    pyautogui.press('space')
                 walking_status = is_walking_detected(left_wrist, right_wrist)
                 print(walking_status)
             else:
