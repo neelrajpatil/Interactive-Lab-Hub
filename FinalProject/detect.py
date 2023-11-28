@@ -148,15 +148,15 @@ def run(model: str, num_poses: int,
                     print('Both arms raised! Pressing space.')
                     simulate_key_press('space')
                 elif is_left_hand_raised(left_wrist, left_ear):
-                    print('Left hand raised! Pressing D.')
+                    print('Left hand raised! Pressing double space.')
                     #pyautogui press space twice
                     pyautogui.keyDown('space')
                     pyautogui.keyUp('space')
                     pyautogui.keyDown('space')
                     pyautogui.keyUp('space')
                 else:
-                    # walking_status = is_walking_detected(left_wrist, right_wrist)
-                    # print(walking_status)
+                    walking_status = is_walking_detected(left_wrist, right_wrist)
+                    print(walking_status)
                     print('')
             else:
                 release_key('w')
