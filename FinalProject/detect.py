@@ -34,6 +34,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 COUNTER, FPS = 0, 0
 START_TIME = time.time()
 DETECTION_RESULT = None
+PRINT = ""
 
 # Global variables to track the previous positions
 prev_left_wrist_y = None
@@ -120,16 +121,15 @@ def run(model: str, num_poses: int,
     # Visualization parameters
     row_size = 50  # pixels
     left_margin = 24  # pixels
-    text_color = (0, 0, 0)  # black
-    font_size = 1
-    font_thickness = 1
+    text_color = (0, 0, 255)  # red
+    font_size = 1.5
+    font_thickness = 2
     fps_avg_frame_count = 10
     overlay_alpha = 0.5
     mask_color = (100, 100, 0)  # cyan
 
-
     def save_result(result: vision.PoseLandmarkerResult, unused_output_image: mp.Image, timestamp_ms: int):
-        global FPS, COUNTER, START_TIME, DETECTION_RESULT
+        global FPS, COUNTER, START_TIME, DETECTION_RESULT, PRINT
 
         # Calculate the FPS
         if COUNTER % fps_avg_frame_count == 0:
@@ -145,9 +145,11 @@ def run(model: str, num_poses: int,
                 right_ear = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_EAR.value]
 
                 if are_both_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
+                    PRINT = 'Both arms raised! Pressing space.'
                     print('Both arms raised! Pressing space.')
                     simulate_key_press('space')
                 elif is_left_hand_raised(left_wrist, left_ear):
+                    PRINT = 'Left hand raised! Pressing double space.'
                     print('Left hand raised! Pressing double space.')
                     #pyautogui press space twice
                     pyautogui.keyDown('space')
@@ -157,9 +159,11 @@ def run(model: str, num_poses: int,
                 else:
                     walking_status = is_walking_detected(left_wrist, right_wrist)
                     print(walking_status)
+                    PRINT = 'Walking detected'
                     print('Walking detected')
             else:
                 release_key('w')
+                PRINT = "No pose detected."
                 print("No pose detected.")
 
         DETECTION_RESULT = result
@@ -198,7 +202,7 @@ def run(model: str, num_poses: int,
         fps_text = 'FPS = {:.1f}'.format(FPS)
         text_location = (left_margin, row_size)
         current_frame = image
-        cv2.putText(current_frame, fps_text, text_location,
+        cv2.putText(current_frame, PRINT, text_location,
                     cv2.FONT_HERSHEY_DUPLEX,
                     font_size, text_color, font_thickness, cv2.LINE_AA)
 
