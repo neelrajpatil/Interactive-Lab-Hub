@@ -34,61 +34,49 @@ mp_drawing_styles = mp.solutions.drawing_styles
 COUNTER, FPS = 0, 0
 START_TIME = time.time()
 DETECTION_RESULT = None
-PRINT = ""
+STATUS = ""
 
 # Global variables to track the previous positions
 prev_left_wrist_y = None
 prev_right_wrist_y = None
 
+pyautogui.FAILSAFE = False
 
-
-def simulate_key_press(key): #might no longer be needed
+def press_release(key):
     pyautogui.keyDown(key)
-    time.sleep(0.75)
+    time.sleep(0.1)
     pyautogui.keyUp(key)
     
-def press_key(key):
+def press(key):
     pyautogui.keyDown(key)
 
-def release_key(key):
+def release(key):
     pyautogui.keyUp(key)
 
 
-def is_left_hand_raised(left_wrist, left_ear):
+def is_left_arm_raised(left_wrist, left_ear):
     # Check if the left wrist is above the left ear
     return left_wrist.y < left_ear.y
 
-def are_both_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
+def is_right_arm_raised(right_wrist, right_ear):
+    # Check if the right wrist is above the right ear
+    return right_wrist.y < right_ear.y
+
+def is_both_arm_raised(left_wrist, right_wrist, left_ear, right_ear):
     # Check if both wrists are above the ears
     return left_wrist.y < left_ear.y and right_wrist.y < right_ear.y
-    
-def is_walking_detected(left_wrist, right_wrist):
-    global prev_left_wrist_y, prev_right_wrist_y
-    walking_threshold = 0.04  # Adjust this threshold as needed
-    coordination_tolerance = 0  # Tolerance for coordination check
 
-    if prev_left_wrist_y is not None and prev_right_wrist_y is not None:
-        left_movement = abs(left_wrist.y - prev_left_wrist_y)
-        right_movement = abs(right_wrist.y - prev_right_wrist_y)
+def is_both_arm_extend(K, left_wrist, left_shoulder, right_wrist, right_shoulder):
+    return right_wrist.x - left_wrist.x > K * (right_shoulder.x - left_shoulder.x)
 
-        prev_left_wrist_y = left_wrist.y
-        prev_right_wrist_y = right_wrist.y
+def is_both_arm_crossed(left_wrist, right_wrist):
+    return left_wrist.x > right_wrist.x
 
-        if left_movement > walking_threshold and right_movement > walking_threshold:
-            movement_diff = left_wrist.y - right_wrist.y
-            if abs(movement_diff) > coordination_tolerance:
-                press_key('w')
-                return "Walking detected"
-            else:
-                release_key('w')
-                return "Walking not detected (uncoordinated movement)"
-        else:
-            release_key('w')
-            return "Walking not detected"
-    else:
-        prev_left_wrist_y = left_wrist.y
-        prev_right_wrist_y = right_wrist.y
-        return "Insufficient data for walking detection"
+def is_left_arm_crossed(left_wrist, right_hip):
+    return left_wrist.x > right_hip.x
+
+def is_right_arm_crossed(right_wrist, left_hip):
+    return right_wrist.x < left_hip.x
 
 def run(model: str, num_poses: int,
         min_pose_detection_confidence: float,
@@ -124,12 +112,12 @@ def run(model: str, num_poses: int,
     text_color = (0, 0, 255)  # red
     font_size = 1.5
     font_thickness = 2
-    fps_avg_frame_count = 10
+    fps_avg_frame_count = 3
     overlay_alpha = 0.5
     mask_color = (100, 100, 0)  # cyan
 
     def save_result(result: vision.PoseLandmarkerResult, unused_output_image: mp.Image, timestamp_ms: int):
-        global FPS, COUNTER, START_TIME, DETECTION_RESULT, PRINT
+        global FPS, COUNTER, START_TIME, DETECTION_RESULT, STATUS
 
         # Calculate the FPS
         if COUNTER % fps_avg_frame_count == 0:
@@ -139,32 +127,40 @@ def run(model: str, num_poses: int,
             if result and result.pose_landmarks and len(result.pose_landmarks) > 0 and len(result.pose_landmarks[0]) >= mp_pose.PoseLandmark.RIGHT_WRIST.value + 1:
                 first_pose_landmarks = result.pose_landmarks[0]
 
-                left_wrist = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value]
-                right_wrist = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value]
-                left_ear = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_EAR.value]
-                right_ear = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_EAR.value]
+                left_wrist = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value]
+                right_wrist = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value]
 
-                if are_both_arms_raised(left_wrist, right_wrist, left_ear, right_ear):
-                    PRINT = 'Both arms raised! Pressing space.'
-                    print('Both arms raised! Pressing space.')
-                    simulate_key_press('space')
-                elif is_left_hand_raised(left_wrist, left_ear):
-                    PRINT = 'Left hand raised! Pressing double space.'
-                    print('Left hand raised! Pressing double space.')
-                    #pyautogui press space twice
-                    pyautogui.keyDown('space')
-                    pyautogui.keyUp('space')
-                    pyautogui.keyDown('space')
-                    pyautogui.keyUp('space')
+                left_ear = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_EAR.value]
+                right_ear = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_EAR.value]
+
+                left_shoulder = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value]
+                right_shoulder = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value]
+
+                left_hip = first_pose_landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value]
+                right_hip = first_pose_landmarks[mp_pose.PoseLandmark.LEFT_HIP.value]
+
+                if is_both_arm_raised(left_wrist, right_wrist, left_ear, right_ear):
+                    if is_both_arm_extend(1, left_wrist, left_shoulder, right_wrist, right_shoulder):
+                        STATUS = 'both_arms_raised'
+                    else:
+                        STATUS = 'both_arms_crossed_up'
+                elif is_left_arm_raised(left_wrist, left_ear):
+                    STATUS = 'left_arm_raised'
+                elif is_right_arm_raised(right_wrist, right_ear):
+                    STATUS = 'right_arm_raised'
+                elif is_both_arm_extend(3.5, left_wrist, left_shoulder, right_wrist, right_shoulder):
+                    STATUS = 'both_arms_extended'
+                elif is_both_arm_crossed(left_wrist, right_wrist):
+                    STATUS = 'both_arms_crossed_down'
+                elif is_left_arm_crossed(left_wrist, right_hip):
+                    STATUS = 'left_arm_crossed'
+                elif is_right_arm_crossed(right_wrist, left_hip):
+                    STATUS = 'right_arm_crossed'
                 else:
-                    walking_status = is_walking_detected(left_wrist, right_wrist)
-                    print(walking_status)
-                    PRINT = 'Walking detected'
-                    print('Walking detected')
+                    STATUS = ""
             else:
-                release_key('w')
-                PRINT = "No pose detected."
-                print("No pose detected.")
+                STATUS = "player_not_detected"
+                # release('w')
 
         DETECTION_RESULT = result
         COUNTER += 1
@@ -202,7 +198,7 @@ def run(model: str, num_poses: int,
         fps_text = 'FPS = {:.1f}'.format(FPS)
         text_location = (left_margin, row_size)
         current_frame = image
-        cv2.putText(current_frame, PRINT, text_location,
+        cv2.putText(current_frame, STATUS, text_location,
                     cv2.FONT_HERSHEY_DUPLEX,
                     font_size, text_color, font_thickness, cv2.LINE_AA)
 
@@ -237,7 +233,7 @@ def run(model: str, num_poses: int,
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
-            release_key('w')
+            release('w')
             break
 
     detector.close()
@@ -252,7 +248,7 @@ def main():
         '--model',
         help='Name of the pose landmarker model bundle.',
         required=False,
-        default='pose_landmarker.task')
+        default='pose_landmarker_lite.task')
     parser.add_argument(
         '--numPoses',
         help='Max number of poses that can be detected by the landmarker.',
@@ -292,12 +288,12 @@ def main():
         '--frameWidth',
         help='Width of frame to capture from camera.',
         required=False,
-        default=1280)
+        default=800)
     parser.add_argument(
         '--frameHeight',
         help='Height of frame to capture from camera.',
         required=False,
-        default=960)
+        default=600)
     args = parser.parse_args()
 
     run(args.model, int(args.numPoses), args.minPoseDetectionConfidence,
