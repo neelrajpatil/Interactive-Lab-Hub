@@ -140,15 +140,24 @@ def run(model: str, num_poses: int,
                 if is_both_arm_raised(left_wrist, right_wrist, left_ear, right_ear):
                     if is_both_arm_extend(1, left_wrist, left_shoulder, right_wrist, right_shoulder):
                         STATUS = 'both_arms_raised'
+                        pyautogui.keyDown('w')
+                        pyautogui.keyDown('space')
+                        pyautogui.keyUp('space')
+                        pyautogui.keyUp('w')
                     else:
                         STATUS = 'both_arms_crossed_up'
                         pyautogui.move(0, -50, 0)
                 elif is_left_arm_raised(left_wrist, left_ear):
                     STATUS = 'left_arm_raised'
+                    pyautogui.mouseDown(button='left')
                 elif is_right_arm_raised(right_wrist, right_ear):
+                    if STATUS != 'right_arm_raised':
+                        pyautogui.mouseDown(button='right')
+                        pyautogui.mouseUp(button='right')
                     STATUS = 'right_arm_raised'
                 elif is_both_arm_extend(3.5, left_wrist, left_shoulder, right_wrist, right_shoulder):
                     STATUS = 'both_arms_extended'
+                    pyautogui.keyDown('w')
                 elif is_both_arm_crossed(left_wrist, right_wrist):
                     STATUS = 'both_arms_crossed_down'
                     pyautogui.move(0, 50, 0)
@@ -160,9 +169,14 @@ def run(model: str, num_poses: int,
                     pyautogui.move(-50, 0, 0)
                 else:
                     STATUS = ""
+                    pyautogui.mouseUp(button='left')
+                    pyautogui.mouseUp(button='right')
+                    pyautogui.keyUp('w')
             else:
                 STATUS = "player_not_detected"
-                # release('w')
+                pyautogui.mouseUp(button='left')
+                pyautogui.mouseUp(button='right')
+                pyautogui.keyUp('w')
 
         DETECTION_RESULT = result
         COUNTER += 1
