@@ -42,10 +42,8 @@ prev_right_wrist_y = None
 
 pyautogui.FAILSAFE = False
 
-def press_release(key):
-    pyautogui.keyDown(key)
-    time.sleep(0.1)
-    pyautogui.keyUp(key)
+def press(key):
+    pyautogui.press(key)
     
 def press(key):
     pyautogui.keyDown(key)
@@ -144,6 +142,7 @@ def run(model: str, num_poses: int,
                         STATUS = 'both_arms_raised'
                     else:
                         STATUS = 'both_arms_crossed_up'
+                        pyautogui.move(0, -50, 0)
                 elif is_left_arm_raised(left_wrist, left_ear):
                     STATUS = 'left_arm_raised'
                 elif is_right_arm_raised(right_wrist, right_ear):
@@ -152,10 +151,13 @@ def run(model: str, num_poses: int,
                     STATUS = 'both_arms_extended'
                 elif is_both_arm_crossed(left_wrist, right_wrist):
                     STATUS = 'both_arms_crossed_down'
+                    pyautogui.move(0, 50, 0)
                 elif is_left_arm_crossed(left_wrist, right_hip):
                     STATUS = 'left_arm_crossed'
+                    pyautogui.move(50, 0, 0)
                 elif is_right_arm_crossed(right_wrist, left_hip):
                     STATUS = 'right_arm_crossed'
+                    pyautogui.move(-50, 0, 0)
                 else:
                     STATUS = ""
             else:
