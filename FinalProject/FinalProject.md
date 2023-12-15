@@ -55,9 +55,52 @@ Certain poses were causing confusion due to their similarity. We refined the det
 
 ### False Positives
 
-False positives were reduced by requiring poses to be held for a short duration before being registered, preventing inadvertent action triggers.
+To address the issue of false positives, several strategies were implemented:
+
+1. **Confidence Thresholds:** The script utilizes configurable thresholds (`min_pose_detection_confidence`, `min_pose_presence_confidence`, `min_tracking_confidence`) for pose detection and tracking. By setting these thresholds appropriately, poses are only recognized if the confidence level meets or exceeds these values. This approach effectively reduces the likelihood of false positives, ensuring that only poses detected with sufficient confidence trigger corresponding actions.
+
+2. **Specific Pose Detection Conditions:** To further enhance accuracy, the code includes functions with precise conditions for identifying specific poses (such as `is_left_arm_raised`, `is_right_arm_raised`). These functions evaluate the relative positions of key landmarks (like wrists and ears for raised arms) to confirm a pose. This method ensures that only clearly defined, intended poses activate the system.
+
+3. **Real-time Processing:** The system processes video frames in real-time, continuously updating pose detection. While this feature does not directly reduce false positives, it allows for rapid correction and adjustment in subsequent frames, thus minimizing the impact of any incorrect pose detection.
+
+4. **Status Checks Before Action:** Before triggering actions, the code checks for changes in the status of a pose (e.g., from not raised to raised). This check helps in reducing repetitive actions for the same pose detection and indirectly lessens the chance of transient false positives affecting the system.
 
 ## Design Process
+
+### Conceptualization and Initial Research
+
+- **Idea Generation:** 
+  - The journey of MyCraft began with exploring innovative ways to transform gaming experiences. We were captivated by the idea of using body movements as game controls, leading us to delve into the potential of pose detection technology.
+
+- **Research Phase:** 
+  - In-depth research into pose detection technologies was undertaken. Mediapipe was chosen for its robust capabilities and adaptability, ideal for the complex task of real-time pose recognition in gaming.
+
+### Prototyping and Development
+
+- **Early Prototyping:** 
+  - The initial prototype, developed with Python and Mediapipe, focused on mapping simple gestures to keyboard inputs. This stage was crucial for gaining an understanding of the practical application of pose detection in gaming.
+
+- **Core Feature Development:** 
+  - We expanded the prototype to include a wider range of gestures, meticulously refining their correlation with specific Minecraft controls. This phase involved intensive coding and was pivotal in translating physical movements into virtual game actions.
+
+### Iterative Testing and Refinement
+
+- **User Testing:** 
+  - Conducting user testing sessions was integral to our development process. These tests provided essential feedback on the system’s accuracy and responsiveness, highlighting issues such as latency and pose overlapping.
+
+- **Algorithm Refinement:** 
+  - The pose detection algorithms underwent continuous refinement, heavily influenced by user feedback. We focused on improving the accuracy of the system and reducing the occurrence of false positives.
+
+- **Evolution of Pose Detection Techniques:** 
+  - Our early attempts at pose recognition involved complex algorithms designed to capture detailed body movements. However, we soon discovered that simpler methods were more effective. For instance, using straightforward criteria like determining if a wrist was above an ear allowed for easier and more reliable pose recognition.
+
+- **Selection of Poses:** 
+  - The final set of poses was chosen through an iterative process, guided by user feedback. Our objective was to identify poses that were distinct yet natural and intuitive.
+
+### Final Integration and Testing
+
+- **Feedback Integration and Comprehensive Testing:** 
+  - The final stage involved integrating all improvements and conducting extensive testing. We ensured the system was robust and user-friendly, capable of handling a variety of scenarios and user interactions.
 
 
 ## Project Timeline Plan:
@@ -76,6 +119,8 @@ False positives were reduced by requiring poses to be held for a short duration 
 
 ## Team and Work Distribution
 
+In our project, the collaboration and distinct contributions of each team member were key to its success. Zack Pakin led the way with his insightful concept, integrating Minecraft on Pi with MediaPipe to enhance user interaction. Carlos Suberviola applied his technical acumen to address software integration challenges, ensuring a smooth and functional user interface. Ivan Nikitovic contributed significantly with his expertise in pose detection, elevating the game's interactivity and user engagement. Finally, Neel Patil was instrumental in developing the game's logic, crafting an engaging and coherent gameplay experience. As a team of students, each member's unique skills and perspectives were invaluable in transforming our initial concept into a functional and engaging project. Our collaborative approach allowed us to learn from each other and navigate the complexities of the project, highlighting the importance of teamwork in achieving our goals.
+
 ## Conclusion
 
 MyCraft is a pioneering interface that offers a new level of interaction with Minecraft. The project has demonstrated the potential of pose detection in gaming and presents exciting opportunities for future development and refinement.
@@ -89,8 +134,18 @@ MyCraft is a pioneering interface that offers a new level of interaction with Mi
 
 ## Video Demonstration
 
-Watch MyCraft in action: [MyCraft Video Demo](https://youtube.com)
+Watch MyCraft in action: [MyCraft Video Demo](https://drive.google.com/file/d/15PhXiFeDBuu0YOuQx1pM1F5UVeHfn6qg/view?usp=sharing)
+
 
 ## Team Reflections
 
-Our team embarked on this project with the vision of enhancing the gaming experience. Throughout the development, we've learned the importance of iterative testing and user feedback. If we were to start over, we would place even greater emphasis on early-stage user testing to refine our pose detection algorithms from the onset.
+Reflecting on our journey with MyCraft, the beginning of this project was quite daunting. We were faced with a challenge that resembled a complex puzzle, with countless pieces scattered and no clear starting point. This overwhelming sense of complexity initially made the project seem insurmountable, as if we were venturing into uncharted territories far beyond our capabilities.
+
+However, as we delved deeper into the development process, the confusion began to dissipate. Each challenge we overcame brought clarity and understanding, transforming what initially appeared as an unachievable task into a series of manageable steps. This gradual unraveling of complexities not only made the project feasible but also fueled our motivation to push the boundaries of what we could create.
+
+This experience taught us a valuable lesson: never be deterred by the initial overwhelming nature of a complex task. It's the momentum that counts. Once we set the wheels in motion, each step forward seemed to align the pieces of the puzzle, proving that even the most daunting tasks can be tackled methodically, one step at a time.
+
+
+
+
+          
