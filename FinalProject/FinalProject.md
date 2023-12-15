@@ -1,6 +1,9 @@
 
 # MyCraft: A Pose Detection Interface for Immersive Gaming
 
+Collaborators: Zack Pakin, Carlos Suberviola, Ivan Nikitovic, Neelraj Patil
+
+
 ## Introduction
 
 MyCraft transforms the traditional gaming experience by allowing players to interact with Minecraft using intuitive body movements. Leveraging the power of the Mediapipe library and custom Python scripts, MyCraft interprets real-time body movements as in-game controls, offering an immersive and engaging way to play without the need for traditional handheld controllers.
